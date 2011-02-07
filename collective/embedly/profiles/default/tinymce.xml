@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<object>
+ <layout>
+  <styles purge="False">
+   <element value="Embedly link|a|embedlylink"/>
+  </styles>
+ </layout>
+</object>
