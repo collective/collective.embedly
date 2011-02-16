@@ -5,17 +5,16 @@ import collective.embedly.transform
 def setupTransforms(context):
 
     portal = context.getSite()
-    MACRO_TRANSFORM = 'embedly_transform'
-    RUID_TRANSFORM = 'ruid-to-url'
-    MT_SAFE = 'text/x-html-safe'
+    TRANSFORM = 'embedly_transform'
+    SAFE = 'text/x-html-safe'
 
     # add transform
     transform_tool = getToolByName(portal, 'portal_transforms')
-    if not hasattr(transform_tool, MACRO_TRANSFORM):
-        transform_tool.manage_addTransform(MACRO_TRANSFORM, 'collective.embedly.transform')
+    if not hasattr(transform_tool, TRANSFORM):
+        transform_tool.manage_addTransform(TRANSFORM, 'collective.embedly.transform')
 
     # set policies
-    for MT in (MT_SAFE,):
+    for MT in (SAFE,):
         policies = [required for (mimetype, required) in transform_tool.listPolicies()
             if mimetype==MT]
         if policies:
@@ -24,10 +23,9 @@ def setupTransforms(context):
         else:
             required = []
 
-        for transform in [MACRO_TRANSFORM]:
+        for transform in [TRANSFORM]:
             if transform not in required:
                 required.append(transform)
-
         transform_tool.manage_addPolicy(MT, required)
 
 
