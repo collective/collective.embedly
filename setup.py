@@ -5,7 +5,7 @@ version = '1.0'
 
 setup(name='collective.embedly',
       version=version,
-      description="",
+      description="TinyMCE visual editor support for embed.ly service",
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from
@@ -15,9 +15,9 @@ setup(name='collective.embedly',
         "Programming Language :: Python",
         ],
       keywords='',
-      author='',
-      author_email='',
-      url='http://svn.plone.org/svn/collective/',
+      author='Quintagroup',
+      author_email='support@quintagroup.com',
+      url='http://svn.plone.org/svn/collective/collective.embedly/',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['collective'],
