@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.1 - Mar 4, 2011
+-----------------
+
+- proper registration of embedly transformation done; does not clash with
+  safe HTML transform from now on
+
 1.0 - Mar 3, 2011
 -----------------
 
