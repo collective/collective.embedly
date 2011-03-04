@@ -73,8 +73,8 @@ class EmbedlyTransform:
 
     __name__ = "embedly_transform"
 
-    inputs = ('text/html',)
-    output = "text/html"
+    inputs = ('text/x-html-safe',)
+    output = "text/x-html-safe"
 
     def __init__(self, name=None):
         self.config_metadata = {
