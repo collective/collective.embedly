@@ -1,12 +1,12 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0'
+version = '1.1'
 
 setup(name='collective.embedly',
       version=version,
       description="TinyMCE visual editor support for embed.ly service",
-      long_description=open("README.txt").read() + "\n" +
+      long_description=open(os.path.join("collective", "embedly", "README.txt")).read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from
       # http://pypi.python.org/pypi?%3Aaction=list_classifiers
