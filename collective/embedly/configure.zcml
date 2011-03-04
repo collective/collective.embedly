@@ -14,6 +14,13 @@
       description="Installs the collective.embedly package"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
+  <genericsetup:registerProfile
+      name="uninstall"
+      title="collective.embedly Uninstall"
+      directory="profiles/uninstall"
+      description="Uninstalls the collective.embedly package"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
   <!-- -*- extra stuff goes here -*- -->
   
 </configure>

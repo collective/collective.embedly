@@ -4,7 +4,6 @@
                version="20110207"
                handler="collective.embedly.setuphandlers.importVarious"
                title="Collective Embedly: transforms import steps">
-    <dependency step="tinymce_settings" />
     Setup transforms
   </import-step>
 </import-steps>

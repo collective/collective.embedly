@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<import-steps>
+  <import-step id="collective.embedly.removetransforms"
+               version="20110304"
+               handler="collective.embedly.setuphandlers.removeVarious"
+               title="Collective Embedly: transforms remove steps">
+    Remove transforms
+  </import-step>
+</import-steps>
+
