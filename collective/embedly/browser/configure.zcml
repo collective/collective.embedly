@@ -1,0 +1,14 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="collective.accordion">
+
+  <browser:resource
+    name="embedly.css"
+    file="embedly.css"
+    />
+  <browser:resource
+    name="embedly.png"
+    file="embedly.png"
+    />
+</configure>

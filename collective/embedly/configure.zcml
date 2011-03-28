@@ -5,6 +5,8 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="collective.embedly">
 
+  <include package=".browser" />
+
   <five:registerPackage package="." initialize=".initialize" />
 
   <genericsetup:registerProfile
