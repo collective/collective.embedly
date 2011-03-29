@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.2 - Mar 29, 2011
+------------------
+
+- the embedly link now marked with icon and background in TinyMCE
+
 1.1 - Mar 4, 2011
 -----------------
 

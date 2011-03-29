@@ -44,5 +44,6 @@ Supported Plone Version
 Author
 ------
 
-* Roman Kozlovskyi 
+* Roman Kozlovskyi
+* Serhiy Valchuk
 
