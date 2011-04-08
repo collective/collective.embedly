@@ -32,9 +32,26 @@ To embed media from the embedly-supported external resource to Plone:
   object on the external service.
    
 * Save this page. Now when rendered, there will be "preview" from embed.ly 
-  service inserted instead of the linked text. 
+  service inserted instead of the linked text.
+  
+* You can pass resize the embeded object passing 'maxwidth', 'maxheight' params.
+  Example: http://www.youtube.com/watch?v=L1NPLlhFTVk&maxwidth=400&maxheight=300
+
+* Also 'wmode' and 'callback' are available. Consult embed.ly documentation for usage.
 
 More about usage at http://projects.quintagroup.com/products/wiki/collective.embedly
+
+Note
+----
+
+* collective.embedly does not fix errors in provided URLs
+
+* you can check if your URL will be transformed calling embed.ly manualy, for example:
+
+   o video URL http://www.youtube.com/watch?v=L1NPLlhFTVk
+   o you should call http://api.embed.ly/v1/api/oembed setting 'url' parameter with your value
+   o http://api.embed.ly/v1/api/oembed?url=http://www.youtube.com/watch?v=L1NPLlhFTVk
+   o http://api.embed.ly/v1/api/oembed?url=http://www.youtube.com/watch?v=L1NPLlhFTVk&fromat=xml format result as xml
 
 Supported Plone Version
 -----------------------
@@ -44,6 +61,7 @@ Supported Plone Version
 Author
 ------
 
+* Volodymyr Cherepanyak
 * Roman Kozlovskyi
 * Serhiy Valchuk
 
