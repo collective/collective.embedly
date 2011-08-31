@@ -34,10 +34,13 @@ def get_oembed(url):
     if embedly_query:
         embedly_query = '&' + embedly_query
     fetch_url = 'http://api.embed.ly/v1/api/oembed?url=%s%s&format=json' % (curl, embedly_query)
+    logger.debug("HREF:%s URL:%s"%(url, fetch_url))
     try:
         result = urllib2.urlopen(fetch_url).read()
+        logger.debug("Response: %s"%result)
     except Exception, e:
-        logger.error("HTTP %d:%s HREF:%s URL:%s"%(e.code, e.msg, url, e.url))
+        logger.error("Unexpected response from embedly API (%d: %s) while processing %s"%(e.code, e.msg, url))
+        logger.debug("Response: %s"%e.read())
         return None
     return json.loads(result)
 
