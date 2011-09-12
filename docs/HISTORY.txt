@@ -4,6 +4,10 @@ Changelog
 1.6 - xxx x, xxxx
 -----------------
 
+- Only run the uninstall profile when the product is being uninstalled.
+  This allows for the api key to survive through a reinstall.
+  [claytron]
+
 - Add support for passing the embedly API key
   [claytron]
 
