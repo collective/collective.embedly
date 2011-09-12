@@ -53,6 +53,10 @@ Note
    o http://api.embed.ly/v1/api/oembed?url=http://www.youtube.com/watch?v=L1NPLlhFTVk
    o http://api.embed.ly/v1/api/oembed?url=http://www.youtube.com/watch?v=L1NPLlhFTVk&fromat=xml format result as xml
 
+* You can set the API key by going to Site Setup -> Configuration Registry and
+  setting the api_key value. The default is to not pass along a key, your
+  requests to embedly will be anonymous and based solely on IP address.
+
 Supported Plone Version
 -----------------------
 

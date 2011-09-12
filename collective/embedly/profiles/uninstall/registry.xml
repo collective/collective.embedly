@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<registry>
+ <!-- These have to be added one by one as the "records" doesn't support delete -->
+ <record delete="true" field="api_key" interface="collective.embedly.interfaces.IEmbedlySettings" name="collective.embedly.interfaces.IEmbedlySettings.api_key" />
+</registry>

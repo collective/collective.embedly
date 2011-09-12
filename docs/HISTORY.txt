@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.6 - xxx x, xxxx
+-----------------
+
+- Add support for passing the embedly API key
+  [claytron]
+
 1.5 - Sep 2, 2011
 -----------------
 

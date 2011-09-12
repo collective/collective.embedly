@@ -6,9 +6,12 @@ import logging
 from Products.CMFCore.utils import getToolByName
 from Products.PortalTransforms.interfaces import ITransform
 from zope.interface import implements
+from zope.component import getUtility
+from plone.registry.interfaces import IRegistry
 from plone.memoize import ram
 from time import time
 from urlparse import urlparse, parse_qsl
+from collective.embedly.interfaces import IEmbedlySettings
 
 logger = logging.getLogger('collective.embedly')
 link_url_re = re.compile('(?P<link><a[^>]*?embedlylink[^>]*? href=[\'"]?(?P<url>[^\'"# >]+).*?</a>)', re.S)
@@ -21,19 +24,23 @@ def get_services():
     result = urllib2.urlopen('http://api.embed.ly/v1/api/services/python').read()
     return json.loads(result)
 
-@ram.cache(lambda method, url: (time() // (60 * 60 * 24), url))
-def get_oembed(url):
+@ram.cache(lambda method, url, api_key: (time() // (60 * 60 * 24), url, api_key))
+def get_oembed(url, api_key):
     url = url.replace('&amp;','&')
     parts = urlparse(url)
     pms = parse_qsl(parts.query)
     embedly_query = '&'.join(['='.join((k[0],k[1])) for k in pms if k[0] in params])
     source_query = '&'.join(['='.join((k[0],k[1])) for k in pms if k[0] not in params])
     curl = url.split('?')[0]
+    # check for an API key and add it to the call if it exists
+    api_key_string = ''
+    if api_key is not None:
+        api_key_string = 'key=%s&' % api_key
     if source_query:
         curl = curl+ '?' + source_query
     if embedly_query:
         embedly_query = '&' + embedly_query
-    fetch_url = 'http://api.embed.ly/v1/api/oembed?url=%s%s&format=json' % (curl, embedly_query)
+    fetch_url = 'http://api.embed.ly/v1/api/oembed?%surl=%s%s&format=json' % (api_key_string, curl, embedly_query)
     logger.debug("HREF:%s URL:%s"%(url, fetch_url))
     try:
         result = urllib2.urlopen(fetch_url).read()
@@ -64,7 +71,11 @@ def replace(matchobj):
     if not match(url):
         matchobj.group()
 
-    oembed = get_oembed(url)
+    registry = getUtility(IRegistry)
+    embedly_settings = registry.forInterface(IEmbedlySettings)
+    # We pass in the url AND the api_key so that if we change the
+    # key, it will fetch against the new key.
+    oembed = get_oembed(url, embedly_settings.api_key)
     #embed was not found or it's a link type
     if oembed is None or oembed['type'] == 'link':
         return matchobj.group()
@@ -114,7 +125,7 @@ class EmbedlyTransform:
         filename may give the original file name of received data
         additional arguments given to engine's convert, convertTo or
         __call__ are passed back to the transform
-        
+
         The object on which the translation was invoked is available
         as context (default: None)
         """
