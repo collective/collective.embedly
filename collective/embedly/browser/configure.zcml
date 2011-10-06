@@ -11,4 +11,12 @@
     name="embedly.png"
     file="embedly.png"
     />
+
+  <browser:page
+      name="update_embedly_services"
+      for="*"
+      class=".tools.UpdateServicesView"
+      permission="cmf.ManagePortal"
+      />
+
 </configure>

@@ -5,6 +5,11 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="collective.embedly">
 
+  <!-- Include configuration for dependencies listed in setup.py -->
+  <include package="plone.app.registry" />
+
+  <include package="Products.CMFCore" file="permissions.zcml" />
+
   <include package=".browser" />
 
   <five:registerPackage package="." initialize=".initialize" />

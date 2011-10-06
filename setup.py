@@ -3,6 +3,8 @@ import os
 
 version = '1.6'
 
+test_require = ['plone.app.testing']
+
 setup(name='collective.embedly',
       version=version,
       description="TinyMCE visual editor support for embed.ly service",
@@ -25,10 +27,13 @@ setup(name='collective.embedly',
       namespace_packages=['collective'],
       include_package_data=True,
       zip_safe=False,
+      tests_require=test_require,
       install_requires=[
           'setuptools',
+          'plone.app.registry',
           # -*- Extra requirements: -*-
-      ],
+      ], 
+      extras_require={'tests': test_require, }, 
       entry_points="""
       # -*- Entry points: -*-
       [z3c.autoinclude.plugin]

@@ -4,6 +4,7 @@ TRANSFORM = 'embedly_transform'
 SAFE = 'text/x-html-safe'
 STYLE = 'Embedly link|a|embedlylink'
 
+
 def setupTransforms(portal):
 
     # add transform
@@ -14,7 +15,7 @@ def setupTransforms(portal):
     # set policies
     for MT in (SAFE,):
         policies = [required for (mimetype, required) in transform_tool.listPolicies()
-            if mimetype==MT]
+            if mimetype == MT]
         if policies:
             transform_tool.manage_delPolicies([MT])
             required = list(policies.pop())
@@ -25,6 +26,7 @@ def setupTransforms(portal):
             if transform not in required:
                 required.append(transform)
         transform_tool.manage_addPolicy(MT, required)
+
 
 def removeTransforms(portal):
 
@@ -48,6 +50,7 @@ def removeTransforms(portal):
                 required.remove(transform)
         transform_tool.manage_addPolicy(MT, required)
 
+
 def setupTMCEstyles(portal):
     tool = getToolByName(portal, 'portal_tinymce', None)
     if tool is None:
@@ -58,6 +61,7 @@ def setupTMCEstyles(portal):
         items.append(STYLE)
         styles = '\n'.join(items)
         setattr(tool, 'styles', styles)
+
 
 def removeTMCEstyles(portal):
     tool = getToolByName(portal, 'portal_tinymce', None)
