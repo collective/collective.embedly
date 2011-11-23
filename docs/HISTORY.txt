@@ -1,6 +1,15 @@
 Changelog
 =========
 
+1.7 - Nov 23, 2011
+------------------
+
+- added view for updating embedly services manually
+
+- handling of empty api_key added
+
+- local cache of available services updated
+
 1.6 - Sep 14, 2011
 ------------------
 
