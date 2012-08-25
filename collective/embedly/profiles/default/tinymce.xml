@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<object>
+ <resourcetypes>
+  <customplugins purge="False">
+   <element value="embedly|/++resource++collective.embedly.plugin/editor_plugin.js"/>
+  </customplugins>
+ </resourcetypes>
+ <toolbar>
+  <customtoolbarbuttons purge="False">
+   <element value="embedlylink"/>
+  </customtoolbarbuttons>
+ </toolbar>
+</object>

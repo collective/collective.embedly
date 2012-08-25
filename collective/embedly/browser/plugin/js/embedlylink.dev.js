@@ -1,0 +1,314 @@
+/* Functions for the plonelink plugin popup */
+
+// tinyMCEPopup.requireLangPack();
+
+var templates = {
+    "window.open" : "window.open('${url}','${target}','${options}')"
+};
+
+var current_path;
+var current_link = "";
+var current_url = "";
+var current_pageanchor = "";
+var labels = "";
+var value_getter = ['maxwidth', 'maxheight', 'width', 'callback', 'wmode', 'words', 'chars'];
+var cheched_getter = ['allowscripts', 'nostyle', 'autoplay', 'videosrc'];
+
+function preinit() {
+    var url;
+
+    if (url = tinyMCEPopup.getParam("external_link_list_url"))
+        document.write('<script language="javascript" type="text/javascript" src="' + tinyMCEPopup.editor.documentBaseURI.toAbsolute(url) + '"></script>');
+}
+
+function initData(href) {
+    var hrefsplit = href.split("?");
+    if (hrefsplit.length === 2) {
+        var paramslist = hrefsplit[1].split("&"), params = {}, eparams = [], newparams = [];
+        for (var i in paramslist) {
+            var x = paramslist[i].split("=");
+            params[x[0]]=x[1];
+        }
+        for (var i in value_getter) {
+            if (value_getter[i] in params) {
+                document.getElementById(value_getter[i]).value = params[value_getter[i]];
+                eparams.push(value_getter[i]);
+            }
+        }
+        for (var i in cheched_getter) {
+            if (cheched_getter[i] in params) {
+                document.getElementById(cheched_getter[i]).checked = true;
+                eparams.push(cheched_getter[i]);
+            }
+        }
+        for (var i in params) {
+            if (eparams.indexOf(i)===-1) {
+                newparams.push(i+"="+params[i]);
+            }
+        }
+        hrefsplit[1] = newparams.join("&");
+        href = hrefsplit.join("?");
+    }
+    return href
+}
+
+function init() {
+    tinyMCEPopup.resizeToInnerSize();
+
+    var formGeneralObj = document.forms[0];
+    var formAdvancedObj = document.forms[1];
+    var formButtonsObj = document.forms[2];
+    var inst = tinyMCEPopup.editor;
+    var elm = inst.selection.getNode();
+    var action = "insert";
+    var html;
+    labels = eval(inst.getParam('labels'));
+
+    // Check if update or insert
+    elm = inst.dom.getParent(elm, "A");
+    if (elm != null && elm.nodeName == "A")
+        action = "update";
+
+    // Set button caption
+    formButtonsObj.insert.value = 'Insert'; 
+
+    // Check if rooted
+    if (tinyMCEPopup.editor.settings.rooted) {
+        document.getElementById('home').style.display = 'none';
+    }
+
+    if (action == "update") {
+        var href = inst.dom.getAttrib(elm, 'href');
+        href = tinymce.trim(href)
+
+        // Setup form data
+        setFormValue('href', href, 0);
+        if ((typeof(elm.title) != "undefined") && (elm.title != "")) {
+            setFormValue('title', inst.dom.getAttrib(elm, 'title'), 2);
+        }
+        href = initData(href);
+        setFormValue('externalurl', href, 0);
+    } else {
+        href = inst.selection.getContent();
+        href = tinymce.trim(href);
+        if (href.indexOf('http') == 0) setFormValue('externalurl', href, 0);
+    }
+}
+
+function getParentUrl(url) {
+    var url_array = url.split('/');
+    url_array.pop();
+    return url_array.join('/');
+}
+
+function getAbsoluteUrl(base, link) {
+    if ((link.indexOf('http://') != -1) || (link.indexOf('https://') != -1) || (link.indexOf('ftp://') != -1)) {
+        return link;
+    }
+    
+    var base_array = base.split('/');
+    var link_array = link.split('/');
+    
+    // Remove document from base url
+    base_array.pop();
+    
+    while (link_array.length != 0) {
+        var item = link_array.shift();
+        if (item == ".") {
+            // Do nothing
+        } else if (item == "..") {
+            // Remove leave node from base
+            base_array.pop();
+        } else {
+            // Push node to base_array
+            base_array.push(item);
+        }
+    }
+    return (base_array.join('/'));
+}
+
+function setFormValue(name, value, formnr) {
+    document.forms[formnr].elements[name].value = value;
+}
+
+function setAttrib(elm, attrib, value, formnr) {
+    var formObj = document.forms[formnr];
+    var valueElm = formObj.elements[attrib.toLowerCase()];
+    var dom = tinyMCEPopup.editor.dom;
+
+    if (typeof(value) == "undefined" || value == null) {
+        value = "";
+
+        if (valueElm)
+            value = valueElm.value;
+    }
+
+    dom.setAttrib(elm, attrib, value);
+}
+
+function previewExternalLink() {
+    var url = document.getElementById('externalurl').value;
+    elink = "http://api.embed.ly/v1/api/oembed?format=json";
+    params = {};
+    params['url'] = escape(url);
+    for(var i in params){
+      if(params[i])
+        elink += '&'+i+'='+params[i];
+    }
+    var request = new XMLHttpRequest();
+    var preview = document.getElementById('previewexternal');
+    request.open( "GET", elink, true );
+    request.onreadystatechange = function () {
+        if ( request.readyState == request.DONE ) {
+            if ( request.status == 200 ) {
+                var resp = eval( "(" + request.responseText + ")" ); 
+                if(resp.type == 'error'){
+                    preview.innerHTML="<p class='error'>We couldn't process this URL. Try again, or email support@embed.ly.</p>";
+                } else {
+                    if (resp.type === 'photo'){
+                        code = '<a href="'+url+'" target="_blank"><img style="width:100%" src="'+resp.url+'" title="'+resp.title||document.title+'" /></a>';
+                    } else if (resp.type === 'video'){
+                        code = resp.html;
+                    } else if (resp.type === 'rich'){
+                        code = resp.html;
+                    } else {
+                        thumb = resp.thumbnail_url ? '<img src="'+resp.thumbnail_url+'" class="thumb embedly-thumbnail-small" />' : '';
+                        description = resp.description;
+                        code = thumb+"<a class='embedly-title' href='" + url + "'>" + title + "</a>";
+                        code += description;
+                    }
+                    // Wrap the embed in our class for manipulation
+                    pr = '<div class="embedly">'+code + '<div class="embedly-clear"></div>';
+                    pr += '<div class="media-attribution"><span>via </span><a href="'+resp.provider_url+'" class="media-attribution-link" target="_blank">'+resp.provider_name+'</a></span></div>'
+                    pr += '<div class="embedly-clear"></div></div>';
+                    preview.innerHTML = pr;
+                }
+            } else { 
+            preview.innerHTML="<p class='error'>We couldn't process this URL. Try again, or email support@embed.ly.</p>";
+            } 
+            request = null; 
+        } 
+    };
+    request.send();
+}
+
+function getInputValue(name, formnr) {
+    return document.forms[formnr].elements[name].value;
+}
+
+function buildHref() {
+    var href = "", params = [], name, title, i;
+    var inst = tinyMCEPopup.editor;
+
+    href = document.getElementById('externalurl').value;
+    for (var i in value_getter) {
+        var value = document.getElementById(value_getter[i]).value;
+        if (value != '') params[value_getter[i]] = value;
+    }
+    for (var i in cheched_getter) {
+        var value = document.getElementById(cheched_getter[i]).checked;
+        if (value) params[cheched_getter[i]] = 'true';
+    }
+    for (var i in params) {
+        if (href.indexOf("?") === -1) {
+            href+="?";
+        } else {
+            href+="&";
+        }
+        href+=i+"="+params[i];
+    }
+    document.forms[0].href.value = href;
+}
+
+function insertAction() {
+    var inst = tinyMCEPopup.editor;
+    var elm, elementArray, i;
+
+    buildHref();
+    elm = inst.selection.getNode();
+    elm = inst.dom.getParent(elm, "A");
+
+    // Remove element if there is no href
+    if (!document.forms[0].href.value) {
+        tinyMCEPopup.execCommand("mceBeginUndoLevel");
+        i = inst.selection.getBookmark();
+        inst.dom.remove(elm, 1);
+        inst.selection.moveToBookmark(i);
+        tinyMCEPopup.execCommand("mceEndUndoLevel");
+        tinyMCEPopup.close();
+        return;
+    }
+
+    tinyMCEPopup.execCommand("mceBeginUndoLevel");
+
+    // Create new anchor elements
+    if (elm == null) {
+        inst.getDoc().execCommand("unlink", false, null);
+        tinyMCEPopup.execCommand("CreateLink", false, "#mce_temp_url#", {skip_undo : 1});
+
+        elementArray = tinymce.grep(inst.dom.select("a"), function(n) {return inst.dom.getAttrib(n, 'href') == '#mce_temp_url#';});
+        for (i=0; i<elementArray.length; i++)
+            setAllAttribs(elm = elementArray[i]);
+    } else
+        setAllAttribs(elm);
+
+    // Don't move caret if selection was image
+    if (elm && (elm.childNodes.length != 1 || elm.firstChild.nodeName != 'IMG')) {
+        inst.focus();
+        inst.selection.select(elm);
+        inst.selection.collapse(0);
+        tinyMCEPopup.storeSelection();
+    }
+
+    tinyMCEPopup.execCommand("mceEndUndoLevel");
+    tinyMCEPopup.close();
+}
+
+function setAllAttribs(elm) {
+    var formGeneralObj = document.forms[0];
+    var formAdvancedObj = document.forms[1];
+    var formButtonsObj = document.forms[2];
+
+    var href = formGeneralObj.href.value;
+//     var target = getSelectValue(formAdvancedObj, 'targetlist');
+
+//     if (target == 'popup') {
+//         setAttrib(elm, 'href', getPopupHref(href), 0);
+//     } else {
+//         setAttrib(elm, 'href', href, 0);
+//     }
+    setAttrib(elm, 'href', href, 0);
+    setAttrib(elm, 'title', formAdvancedObj.title.value, 2);
+//     if ((target != '_self') && (target != 'popup')) {
+//         setAttrib(elm, 'target', target, 2);
+//     }
+
+    var dom = tinyMCEPopup.editor.dom;
+    dom.addClass(elm, 'embedlylink');
+
+    // Refresh in old MSIE
+    if (tinyMCE.isMSIE5)
+        elm.outerHTML = elm.outerHTML;
+}
+
+function getSelectValue(form_obj, field_name) {
+    var elm = form_obj.elements[field_name];
+
+    if (!elm || elm.options == null || elm.selectedIndex == -1)
+        return "";
+
+    return elm.options[elm.selectedIndex].value;
+}
+
+// function displayPanel(elm_id) {
+//     document.getElementById ('internal_panel').style.display = elm_id == 'internal_panel' || elm_id == 'upload_panel' ? 'block' : 'none';
+//     document.getElementById ('internal_details_panel').style.display = elm_id == 'internal_panel' ? 'block' : 'none';
+//     document.getElementById ('external_panel').style.display = elm_id == 'external_panel' ? 'block' : 'none';
+//     document.getElementById ('mail_panel').style.display = elm_id == 'mail_panel' ? 'block' : 'none';
+//     document.getElementById ('anchors_panel').style.display = elm_id == 'anchors_panel' ? 'block' : 'none';
+//     document.getElementById ('upload_panel').style.display = elm_id == 'upload_panel' ? 'block' : 'none';
+// }
+
+// While loading
+preinit();
+tinyMCEPopup.onInit.add(init);

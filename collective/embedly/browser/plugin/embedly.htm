@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Embedly</title>
+  <script type="text/javascript" src="../tiny_mce_popup.js"></script>
+  <script type="text/javascript" src="../utils/mctabs.js"></script>
+  <script type="text/javascript" src="../utils/form_utils.js"></script>
+  <script type="text/javascript" src="js/embedlylink.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/embedlylink.css" />
+</head>
+<body id="plonelink" class="icons-on">
+  <div class="dialog-wrapper" id="content">
+    <ul class="formTabs"><li id="general_tab" class="formTab firstFormTab"><a href="javascript:mcTabs.displayTab('general_tab','general_panel');" onmousedown="return false;" class="selected"><span>General</span></a></li><li id="advanced_tab" class="formTab lastFormTab"><a href="javascript:mcTabs.displayTab('advanced_tab','advanced_panel');" onmousedown="return false;"><span>Advanced</span></a></li></ul>
+
+    <fieldset id="general_panel" class="formPanel">
+      <div id="internalpath" class="formHelp"></div>
+      <form>
+        <input type="hidden" name="href" id="href"/>
+
+        <fieldset id="external_panel" class="subPanel column">
+          <legend>External link</legend>
+          <div class="field">
+            <label for="externalurl">Link URL</label>
+            <div class="widget">
+              <input type="text" name="externalurl" id="externalurl" value="" size="30"/>
+              <input type="button" id="preview" class="context" name="preview" value="Preview" onclick="previewExternalLink();" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="preview">Preview</label>
+            <div class="widget">
+              <div width="100%" height="242" class="input-border" name="previewexternal" id="previewexternal"></div>
+            </div>
+          </div>
+        </fieldset>
+
+      </form>
+
+    </fieldset>
+
+    <fieldset id="advanced_panel" class="formPanel">
+      <form>
+        <div class="field">
+          <label for="maxwidth">maxwidth<span class="formHelp">This is the maximum width of the embed in pixels.</span></label>
+          <div class="widget">
+            <input type="text" name="maxwidth" id="maxwidth" value="" size="10" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="maxheight">maxheight<span class="formHelp">This is the maximum height of the embed in pixels.</span></label>
+          <div class="widget">
+            <input type="text" name="maxheight" id="maxheight" value="" size="10" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="width">width<span class="formHelp">Will scale embeds type rich and video to the exact width that a developer specifies in pixels.</span></label>
+          <div class="widget">
+            <input type="text" name="width" id="width" value="" size="10" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="callback">callback<span class="formHelp">The callback is the name of the javascript function to execute.</span></label>
+          <div class="widget">
+            <input type="text" name="callback" id="callback" value="" size="30" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="wmode">wmode<span class="formHelp">Will append the wmode value to the flash object.</span></label>
+          <div class="widget">
+            <select id="wmode" name="wmode">
+              <option value=""></option>
+              <option value="window">window</option>
+              <option value="opaque">opaque</option>
+              <option value="transparent">transparent</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="allowscripts">allowscripts<span class="formHelp">In some cases, you may need the script tag for saving and displaying later. In order for Embedly to send the script embeds over jsonp add allowscripts.</span></label>
+          <div class="widget">
+            <input type="checkbox" name="allowscripts" id="allowscripts" value="" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="nostyle">nostyle<span class="formHelp">These all have style elements and inline styles associated with them that make the embeds look good. If you wish to style these embeds yourself, you can add nostyle and Embedly will remove the style elements.</span></label>
+          <div class="widget">
+            <input type="checkbox" name="nostyle" id="nostyle" value="" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="autoplay">autoplay<span class="formHelp">This will tell the video/rich media to automatically play when the media is loaded.</span></label>
+          <div class="widget">
+            <input type="checkbox" name="autoplay" id="autoplay" value="" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="videosrc">videosrc<span class="formHelp">Either true Embedly will use the video_src meta or Open Graph tag to create a video object to embed.</span></label>
+          <div class="widget">
+            <input type="checkbox" name="videosrc" id="videosrc" value="" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="words">words<span class="formHelp">
+The words parameter has a default value of 50 and works by trying to split the description at the closest sentence to that word count.
+</span></label>
+          <div class="widget">
+            <input type="text" name="words" id="words" value="" size="10" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="chars">chars<span class="formHelp">
+    chars is much simpler than words. Embedly will blindly truncate a description to the number of characters you specify adding ... at the end when needed.
+</span></label>
+          <div class="widget">
+            <input type="text" name="chars" id="chars" value="" size="10" />
+          </div>
+        </div>
+      </form>
+    </fieldset>
+
+    <div class="visualClear"><!-- --></div>
+
+    <form onsubmit="insertAction();return false;" action="#">
+      <div class="mceActionPanel formControls">
+        <span class="actionButtons">
+          <input type="submit" id="insert" class="context" name="insert" value="Insert" />
+          <input type="button" id="cancel" class="standalone" name="cancel" value="Cancel" onclick="tinyMCEPopup.close();" />
+        </span>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
