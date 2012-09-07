@@ -7,6 +7,6 @@ before_install:
   - sudo apt-get install -qq libxml2-dev libxslt-dev
 install:
   - python bootstrap.py
-  - bin/buildout -q -t 10
+  - bin/buildout -q -t 5 buildout:parts=test
 script:
   - bin/test
