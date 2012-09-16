@@ -11,3 +11,4 @@ develop-eggs/
 extras/
 parts/
 var/
+buildout-cache/
