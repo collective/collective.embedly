@@ -203,3 +203,27 @@ class TestSetup(unittest.TestCase):
         res = res.getData()
 
         self.assertTrue(res.startswith('<div class="embed">'))
+
+import unittest
+
+from plone.testing import layered
+from plone.testing import z2
+
+import robotsuite
+
+from plone.app.testing import PloneSandboxLayer
+from plone.app.testing.layers import FunctionalTesting
+
+COLLECTIVEEMBEDLY_FIXTURE = PloneSandboxLayer()
+
+COLLECTIVEEMBEDLY_ACCEPTANCE_TESTING = FunctionalTesting(
+    bases=(COLLECTIVEEMBEDLY_FIXTURE, z2.ZSERVER_FIXTURE),
+    name="CollectiveEmbedlyLayer:Acceptance")
+
+def test_suite():
+    suite = unittest.TestSuite()
+    suite.addTests([
+        layered(robotsuite.RobotTestSuite("test_embedly.txt"),
+        layer=COLLECTIVEEMBEDLY_ACCEPTANCE_TESTING),
+    ])
+    return suite

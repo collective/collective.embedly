@@ -3,7 +3,14 @@ import os
 
 version = '1.7'
 
-test_require = ['plone.app.testing']
+test_require = [
+    'plone.app.testing',
+    'plone.act',
+    'robotsuite',
+    'robotframework-selenium2library',
+    'decorator',
+    'selenium',
+]
 
 setup(name='collective.embedly',
       version=version,
