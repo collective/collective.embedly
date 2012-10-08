@@ -20,6 +20,7 @@ Suite Teardown  Close All Browsers
 
 ${front-page}  http://localhost:55001/plone/
 ${test-folder}  http://localhost:55001/plone/acceptance-test-folder
+${install_form}  http://localhost:55001/plone/prefs_install_products_form
 
 ${PORT} =  55001
 ${ZOPE_URL} =  http://localhost:${PORT}
@@ -29,20 +30,32 @@ ${BROWSER} =  Firefox
 
 *** Test Cases ***
 
-Test Create Embedly Page
+Test Create Page without Embedly
     Log in as site owner
     Go to  ${front-page}
-    Add page  Embedly Page
+    Add page  Without Embedly Page
     Click Edit In Edit Bar
 #    selenium.type("dom=document.getElementById('text_ifr').contentDocument.body",'Test Embedly Text')
 #    Input text  dom=document.getElementById('text_ifr').contentDocument.body  Test Embedly Text
     Click Link  Edit without visual editor
-    Input text  text  Test Embedly Text
+    Input text  text  <a class="external-link" href="http://www.youtube.com/watch?v=LBDtqdOG4Uc">Demo Video file from YouTube.</a>
     Click button  name=form.button.save
-    Page Should Contain  Test Embedly Text
+    Page Should Contain  Demo Video file from YouTube.
+    Logout
+
+Test Create Page with Embedly
+    Log in as site owner
+    Go to  ${install_form}
+    Select Checkbox  id=collective.embedly
+    Click Button  Activate
+    Go to  ${front-page}
+    Add page  With Embedly Page
     Click Edit In Edit Bar
+#    selenium.type("dom=document.getElementById('text_ifr').contentDocument.body",'Test Embedly Text')
+#    Input text  dom=document.getElementById('text_ifr').contentDocument.body  Test Embedly Text
     Click Link  Edit without visual editor
     Input text  text  <a class="embedlylink external-link" href="http://www.youtube.com/watch?v=LBDtqdOG4Uc">Demo Video file from YouTube.</a>
+    Click button  name=form.button.save
     Page Should Not Contain  Demo Video file from YouTube.
     Logout
 

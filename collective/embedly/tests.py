@@ -3,12 +3,15 @@ import urllib
 import re
 import json
 import logging
+import robotsuite
 import unittest2 as unittest
 from urlparse import urlparse, parse_qsl
 
 from zope.component import getUtility
 
 from plone.registry.interfaces import IRegistry
+
+from plone.testing import layered
 
 from plone.app.testing import TEST_USER_NAME, TEST_USER_ID
 from plone.app.testing import setRoles
@@ -17,6 +20,7 @@ from plone.app.testing import login
 from zope.annotation.interfaces import IAnnotations
 
 from collective.embedly.testing import EMBEDLY_INTEGRATION_TESTING
+from collective.embedly.testing import EMBEDLY_ACCEPTANCE_TESTING
 from collective.embedly.interfaces import IEmbedlySettings
 from collective.embedly.transform import get_oembed, parse, get_services_regexp
 from collective.embedly.transform import match, update_services, replace
@@ -204,26 +208,12 @@ class TestSetup(unittest.TestCase):
 
         self.assertTrue(res.startswith('<div class="embed">'))
 
-import unittest
-
-from plone.testing import layered
-from plone.testing import z2
-
-import robotsuite
-
-from plone.app.testing import PloneSandboxLayer
-from plone.app.testing.layers import FunctionalTesting
-
-COLLECTIVEEMBEDLY_FIXTURE = PloneSandboxLayer()
-
-COLLECTIVEEMBEDLY_ACCEPTANCE_TESTING = FunctionalTesting(
-    bases=(COLLECTIVEEMBEDLY_FIXTURE, z2.ZSERVER_FIXTURE),
-    name="CollectiveEmbedlyLayer:Acceptance")
 
 def test_suite():
     suite = unittest.TestSuite()
     suite.addTests([
         layered(robotsuite.RobotTestSuite("test_embedly.txt"),
-        layer=COLLECTIVEEMBEDLY_ACCEPTANCE_TESTING),
+        layer=EMBEDLY_ACCEPTANCE_TESTING),
     ])
+    suite.addTest(unittest.makeSuite(TestSetup))
     return suite
