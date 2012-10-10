@@ -1,15 +1,10 @@
 *** Settings ***
 
-Library  Selenium2Library  timeout=15  implicit_wait=0.5
-Library  collective.embedly.testing_keywords.Keywords
+Library  Selenium2Library  timeout=15  implicit_wait=1
 
 Resource  plone/act/keywords.txt
-#Resource  collection_keywords.txt
 
 Variables  plone/app/testing/interfaces.py
-
-#Suite Setup  Suite Setup
-#Suite Teardown  Suite Teardown
 
 Suite Setup  Open browser  ${front-page}
 
@@ -35,10 +30,8 @@ Test Create Page without Embedly
     Go to  ${front-page}
     Add page  Without Embedly Page
     Click Edit In Edit Bar
-#    selenium.type("dom=document.getElementById('text_ifr').contentDocument.body",'Test Embedly Text')
-#    Input text  dom=document.getElementById('text_ifr').contentDocument.body  Test Embedly Text
-    Click Link  Edit without visual editor
-    Input text  text  <a class="external-link" href="http://www.youtube.com/watch?v=LBDtqdOG4Uc">Demo Video file from YouTube.</a>
+    Wait Until Page Contains Element  dom=document.getElementById('text_ifr')
+    Execute JavaScript  document.getElementById('text_ifr').contentDocument.body.innerHTML='<a class="external-link" href="http://www.youtube.com/watch?v=LBDtqdOG4Uc">Demo Video file from YouTube.</a>'
     Click button  name=form.button.save
     Page Should Contain  Demo Video file from YouTube.
     Logout
@@ -51,11 +44,10 @@ Test Create Page with Embedly
     Go to  ${front-page}
     Add page  With Embedly Page
     Click Edit In Edit Bar
-#    selenium.type("dom=document.getElementById('text_ifr').contentDocument.body",'Test Embedly Text')
-#    Input text  dom=document.getElementById('text_ifr').contentDocument.body  Test Embedly Text
-    Click Link  Edit without visual editor
-    Input text  text  <a class="embedlylink external-link" href="http://www.youtube.com/watch?v=LBDtqdOG4Uc">Demo Video file from YouTube.</a>
+    Wait Until Page Contains Element  dom=document.getElementById('text_ifr')
+    Execute JavaScript  document.getElementById('text_ifr').contentDocument.body.innerHTML='<a class="embedlylink external-link" href="http://www.youtube.com/watch?v=LBDtqdOG4Uc">Demo Video file from YouTube.</a>'
     Click button  name=form.button.save
     Page Should Not Contain  Demo Video file from YouTube.
+    Page Should Contain Element  css=div.embed
     Logout
 
