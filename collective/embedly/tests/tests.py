@@ -1,11 +1,7 @@
 import urllib2
-import urllib
-import re
 import json
-import logging
 import robotsuite
 import unittest2 as unittest
-from urlparse import urlparse, parse_qsl
 
 from zope.component import getUtility
 
@@ -20,11 +16,8 @@ from plone.app.testing import login
 from zope.annotation.interfaces import IAnnotations
 
 from collective.embedly.interfaces import IEmbedlySettings
-from collective.embedly.transform import get_oembed, parse, get_services_regexp
-from collective.embedly.transform import match, update_services, replace
-
-from Products.CMFCore.utils import getToolByName
-
+from collective.embedly.transform import get_oembed, parse
+from collective.embedly.transform import match, update_services
 from collective.embedly.tests.layer import EMBEDLY_INTEGRATION_TESTING
 from collective.embedly.tests.layer import EMBEDLY_ACCEPTANCE_TESTING
 from collective.embedly.tests.patch import json_result
@@ -100,7 +93,7 @@ class TestSetup(unittest.TestCase):
         portal = self.layer['portal']
         setRoles(portal, TEST_USER_ID, ['Manager'])
         login(portal, TEST_USER_NAME)
-        doc = portal.invokeFactory('Document', id='doc')
+        portal.invokeFactory('Document', id='doc')
         portal.doc.setText('<a class="external-link embedlylink" href="%s"></a>' % self.obj_url)
 
         res = parse(portal.doc.getRawText())
@@ -111,7 +104,7 @@ class TestSetup(unittest.TestCase):
         portal = self.layer['portal']
         setRoles(portal, TEST_USER_ID, ['Manager'])
         login(portal, TEST_USER_NAME)
-        doc = portal.invokeFactory('Document', id='doc')
+        portal.invokeFactory('Document', id='doc')
         portal.doc.setText('<a class="external-link" href="%s"></a>' % self.obj_url)
 
         res = parse(portal.doc.getRawText())
@@ -135,7 +128,7 @@ class TestSetup(unittest.TestCase):
 
         setRoles(portal, TEST_USER_ID, ['Manager'])
         login(portal, TEST_USER_NAME)
-        doc = portal.invokeFactory('Document', id='doc')
+        portal.invokeFactory('Document', id='doc')
         portal.doc.setText('<a class="external-link embedlylink" href="%s"></a>' % self.obj_url)
         data = portal.doc.getRawText()
         res = pt.convertTo(target_mimetype='text/x-html-safe', orig=data,

@@ -181,8 +181,3 @@ class EmbedlyTransform:
 
 def register():
     return EmbedlyTransform()
-
-
-def initialize():
-    engine = getToolByName(portal, 'portal_transforms')
-    engine.registerTransform(register())
