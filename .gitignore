@@ -12,3 +12,4 @@ extras/
 parts/
 var/
 buildout-cache/
+src/

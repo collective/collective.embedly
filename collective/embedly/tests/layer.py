@@ -3,10 +3,8 @@ from plone.app.testing import IntegrationTesting, FunctionalTesting
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import applyProfile
 from plone.app.testing import PloneSandboxLayer
-from plone.app.testing import login
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
 from zope.configuration import xmlconfig
+from collective.embedly.tests.patch import patch_urlopen, unpatch_urlopen
 
 
 class Embedly(PloneSandboxLayer):
@@ -14,25 +12,18 @@ class Embedly(PloneSandboxLayer):
     def setUpZope(self, app, configurationContext):
         # Load ZCML
         import collective.embedly
-        print "Loading zcml configurations"
         xmlconfig.file('configure.zcml', collective.embedly, context=configurationContext)
 
     def setUpPloneSite(self, portal):
-        print "Applying default profile"
         applyProfile(portal, 'collective.embedly:default')
-        portal.acl_users.userFolderAddUser('admin',
-                                           'secret',
-                                           ['Manager'],
-                                           [])
-        login(portal, 'admin')
-        portal.portal_workflow.setDefaultChain("simple_publication_workflow")
-        setRoles(portal, TEST_USER_ID, ['Manager'])
-        portal.invokeFactory(
-            "Folder",
-            id="acceptance-test-folder",
-            title=u"Test Folder"
-        )
 
+    def setUp(self):
+        super(Embedly, self).setUp()
+        patch_urlopen()
+
+    def tearDown(self):
+        super(Embedly, self).tearDown()
+        unpatch_urlopen()
 
 EMBEDLY_FIXTURE = Embedly()
 EMBEDLY_INTEGRATION_TESTING = IntegrationTesting(

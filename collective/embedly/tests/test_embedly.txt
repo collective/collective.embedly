@@ -1,0 +1,62 @@
+*** Settings ***
+
+Library  Selenium2Library  timeout=15  implicit_wait=1
+
+Resource  plone/act/keywords.txt
+
+Variables  plone/app/testing/interfaces.py
+
+Suite Setup  Open browser  ${front-page}
+
+Suite Teardown  Close All Browsers
+
+
+*** Variables ***
+
+${front-page}  http://localhost:55001/plone/
+${test-folder}  http://localhost:55001/plone/acceptance-test-folder
+${install_form}  http://localhost:55001/plone/prefs_install_products_form
+
+${PORT} =  55001
+${ZOPE_URL} =  http://localhost:${PORT}
+${PLONE_URL} =  ${ZOPE_URL}/plone
+${BROWSER} =  Firefox
+${T_FLICKR} =  Embedly Flickr
+${T_YOUTUBE} =  Embedly Youtube
+${L_FLICKR} =  http://www.flickr.com/photos/123.jpg
+${L_YOUTUBE} =  http://www.youtube.com/watch?v=L1NPLlhFTVk
+${W_FLICKR} =  <a class="external-link embedlylink" href="${L_FLICKR}">${T_FLICKR}</a>
+${W_YOUTUBE} =  <a class="external-link embedlylink" href="${L_YOUTUBE}">${T_YOUTUBE}</a>
+${WO_FLICKR} =  <a class="external-link" href="${L_FLICKR}">${T_FLICKR}</a>
+${WO_YOUTUBE} =  <a class="external-link" href="${L_YOUTUBE}">${T_YOUTUBE}</a>
+${TINY_MCE} =  document.getElementById('text_ifr')
+${INSERT_MCE} =  ${TINY_MCE}.contentDocument.body.innerHTML
+${E_BLOCK} =  css=div.embed
+
+
+*** Test Cases ***
+
+Test Create Page without Embedly
+    Log in as site owner
+    Go to  ${front-page}
+    Add page  Without Embedly Page
+    Click Edit In Edit Bar
+    Wait Until Page Contains Element  dom=${TINY_MCE}
+    Execute JavaScript  ${INSERT_MCE}='${WO_YOUTUBE}'
+    Click button  name=form.button.save
+    Page Should Contain  ${T_YOUTUBE}
+    Page Should Not Contain  ${E_BLOCK}
+    Logout
+
+Test Create Page with Embedly
+    Log in as site owner
+    Go to  ${front-page}
+    Add page  With Embedly Page
+    Click Edit In Edit Bar
+    Wait Until Page Contains Element  dom=${TINY_MCE}
+    Execute JavaScript  ${INSERT_MCE}='${W_YOUTUBE}'
+    Click button  name=form.button.save
+    Page Should Not Contain  ${T_YOUTUBE}
+    Page Should Contain Element  ${E_BLOCK}
+    Logout
+
