@@ -44,7 +44,7 @@ class TestSetup(unittest.TestCase):
         res = urllib2.urlopen('http://api.embed.ly/v1/api/services/python')
         list_exp = []
         for service in json.loads(res.read()):
-            list_exp.append('|'.join(service.get('regex',[])))
+            list_exp.append('|'.join(service.get('regex', [])))
         self.assertEqual(storage.get('collective.embedly.services'), '|'.join(list_exp))
 
     def test_embedly_params(self):
@@ -149,7 +149,7 @@ def test_suite():
     suite = unittest.TestSuite()
     suite.addTests([
         layered(robotsuite.RobotTestSuite("test_embedly.txt"),
-        layer=EMBEDLY_ACCEPTANCE_TESTING),
+                layer=EMBEDLY_ACCEPTANCE_TESTING),
     ])
     suite.addTest(unittest.makeSuite(TestSetup))
     return suite

@@ -9,6 +9,7 @@ from collective.embedly.tests.patch import patch_urlopen, unpatch_urlopen
 
 class Embedly(PloneSandboxLayer):
     defaultBases = (PLONE_FIXTURE,)
+
     def setUpZope(self, app, configurationContext):
         # Load ZCML
         import collective.embedly
@@ -27,13 +28,13 @@ class Embedly(PloneSandboxLayer):
 
 EMBEDLY_FIXTURE = Embedly()
 EMBEDLY_INTEGRATION_TESTING = IntegrationTesting(
-        bases=(EMBEDLY_FIXTURE,),
-        name="Embedly:Integration")
+    bases=(EMBEDLY_FIXTURE,),
+    name="Embedly:Integration")
 
 EMBEDLY_FUNCTIONAL_TESTING = FunctionalTesting(
-        bases=(EMBEDLY_FIXTURE,),
-        name="Embedly:Functional")
+    bases=(EMBEDLY_FIXTURE,),
+    name="Embedly:Functional")
 
 EMBEDLY_ACCEPTANCE_TESTING = FunctionalTesting(
-        bases=(EMBEDLY_FIXTURE, z2.ZSERVER_FIXTURE),
-        name="Embedly:Acceptance")
+    bases=(EMBEDLY_FIXTURE, z2.ZSERVER_FIXTURE),
+    name="Embedly:Acceptance")

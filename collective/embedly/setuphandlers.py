@@ -14,8 +14,9 @@ def setupTransforms(portal):
 
     # set policies
     for MT in (SAFE,):
-        policies = [required for (mimetype, required) in transform_tool.listPolicies()
-            if mimetype == MT]
+        policies = [required
+                    for (mimetype, required) in transform_tool.listPolicies()
+                    if mimetype == MT]
         if policies:
             transform_tool.manage_delPolicies([MT])
             required = list(policies.pop())
@@ -37,8 +38,9 @@ def removeTransforms(portal):
 
     # set policies
     for MT in (SAFE,):
-        policies = [required for (mimetype, required) in transform_tool.listPolicies()
-            if mimetype==MT]
+        policies = [required
+                    for (mimetype, required) in transform_tool.listPolicies()
+                    if mimetype == MT]
         if policies:
             transform_tool.manage_delPolicies([MT])
             required = list(policies.pop())
@@ -57,7 +59,7 @@ def setupTMCEstyles(portal):
         return
     styles = getattr(tool, 'styles')
     items = styles.split('\n')
-    if STYLE not in items: 
+    if STYLE not in items:
         items.append(STYLE)
         styles = '\n'.join(items)
         setattr(tool, 'styles', styles)
@@ -69,10 +71,11 @@ def removeTMCEstyles(portal):
         return
     styles = getattr(tool, 'styles')
     items = styles.split('\n')
-    if STYLE in items: 
+    if STYLE in items:
         items.remove(STYLE)
         styles = '\n'.join(items)
         setattr(tool, 'styles', styles)
+
 
 def importVarious(context):
     if context.readDataFile('collective.embedly.install.txt') is None:
@@ -80,6 +83,7 @@ def importVarious(context):
     portal = context.getSite()
     setupTransforms(portal)
     setupTMCEstyles(portal)
+
 
 def removeVarious(context):
     if context.readDataFile('collective.embedly.uninstall.txt') is None:

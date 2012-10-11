@@ -12,6 +12,7 @@ json_result = {u'provider_url': u'http://www.youtube.com/', u'description': u'HA
 
 dummy_services = '[{"regex": ["http://.*youtube\\\\.com/watch.*", "http://.*\\\\.youtube\\\\.com/v/.*", "https://.*youtube\\\\.com/watch.*", "https://.*\\\\.youtube\\\\.com/v/.*", "http://youtu\\\\.be/.*", "http://.*\\\\.youtube\\\\.com/user/.*", "http://.*\\\\.youtube\\\\.com/.*\\\\#.*/.*", "http://m\\\\.youtube\\\\.com/watch.*", "http://m\\\\.youtube\\\\.com/index.*", "http://.*\\\\.youtube\\\\.com/profile.*", "http://.*\\\\.youtube\\\\.com/view_play_list.*", "http://.*\\\\.youtube\\\\.com/playlist.*"], "about": "About", "displayname": "YouTube", "name": "youtube", "domain": "youtube.com", "subdomains": ["m.youtube.com"], "favicon": "http://c2548752.cdn.cloudfiles.rackspacecloud.com/youtube.ico", "type": "video"}, {"regex": ["http://.*justin\\\\.tv/.*", "http://.*justin\\\\.tv/.*/w/.*"], "about": "About", "displayname": "Justin.tv", "name": "justintv", "domain": "justin.tv", "subdomains": [], "favicon": "http://c2548752.cdn.cloudfiles.rackspacecloud.com/justintv.ico", "type": "video"}, {"regex": ["http://www\\\\.flickr\\\\.com/photos/.*", "http://flic\\\\.kr/.*"], "about": "About", "displayname": "Flickr", "name": "flickr", "domain": "flickr.com", "subdomains": [], "favicon": "http://c2548752.cdn.cloudfiles.rackspacecloud.com/flickr.ico", "type": "photo"}]'
 
+
 class dummy_urlopen():
     code = 200
 
@@ -37,7 +38,7 @@ class dummy_urlopen():
             if p[0] == 'url':
                 service_url = p[1]
 
-        if key is not None and len(key)!=32:
+        if key is not None and len(key) != 32:
             from StringIO import StringIO
             raise urllib2.HTTPError(self.url, 401, 'Unauthorized', None,
                                     StringIO('Invalid key or oauth_consumer_key provided: %s' % key))
@@ -54,6 +55,7 @@ class dummy_urlopen():
 
 original_urlopen = urllib2.urlopen
 
+
 def patch_urlopen():
     global original_urlopen
     original_urlopen = urllib2.urlopen
@@ -62,4 +64,3 @@ def patch_urlopen():
 
 def unpatch_urlopen():
     urllib2.urlopen = original_urlopen
-
