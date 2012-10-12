@@ -1,6 +1,6 @@
 *** Settings ***
 
-Library  Selenium2Library  timeout=15  implicit_wait=1
+Library  Selenium2Library  timeout=15  implicit_wait=0.1
 
 Resource  plone/act/keywords.txt
 
@@ -21,14 +21,23 @@ ${PORT} =  55001
 ${ZOPE_URL} =  http://localhost:${PORT}
 ${PLONE_URL} =  ${ZOPE_URL}/plone
 ${BROWSER} =  Firefox
-${T_FLICKR} =  Embedly Flickr
-${T_YOUTUBE} =  Embedly Youtube
+
+${T_NO_EMBEDLY} =  No Embedly Block
+${L_NO_EMBEDLY} =  http://www.youtube.com/watch?v=L1NPLlhFTVk
+${B_NO_EMBEDLY} =  <a class="external-link" href="${L_NO_EMBEDLY}">${T_NO_EMBEDLY}</a>
+
+${T_NO_VALID} =  No Valid Block
+${L_NO_VALID} =  http://not.valid.url/11
+${B_NO_VALID} =  <a class="external-link embedlylink" href="${L_NO_VALID}">${T_NO_VALID}</a>
+
+${T_FLICKR} =  Embedly Flickr Block
 ${L_FLICKR} =  http://www.flickr.com/photos/123.jpg
+${B_FLICKR} =  <a class="external-link embedlylink" href="${L_FLICKR}">${T_FLICKR}</a>
+
+${T_YOUTUBE} =  Embedly Youtube Block
 ${L_YOUTUBE} =  http://www.youtube.com/watch?v=L1NPLlhFTVk
-${W_FLICKR} =  <a class="external-link embedlylink" href="${L_FLICKR}">${T_FLICKR}</a>
-${W_YOUTUBE} =  <a class="external-link embedlylink" href="${L_YOUTUBE}">${T_YOUTUBE}</a>
-${WO_FLICKR} =  <a class="external-link" href="${L_FLICKR}">${T_FLICKR}</a>
-${WO_YOUTUBE} =  <a class="external-link" href="${L_YOUTUBE}">${T_YOUTUBE}</a>
+${B_YOUTUBE} =  <a class="external-link embedlylink" href="${L_YOUTUBE}">${T_YOUTUBE}</a>
+
 ${TINY_MCE} =  document.getElementById('text_ifr')
 ${INSERT_MCE} =  ${TINY_MCE}.contentDocument.body.innerHTML
 ${E_BLOCK} =  css=div.embed
@@ -36,27 +45,63 @@ ${E_BLOCK} =  css=div.embed
 
 *** Test Cases ***
 
-Test Create Page without Embedly
+Test Embedly Video
     Log in as site owner
     Go to  ${front-page}
-    Add page  Without Embedly Page
-    Click Edit In Edit Bar
+    Open Add New Menu
+    Click Link  link=Page
+    Wait Until Page Contains Element  title
+    Input Text  title  Page Embedly Video
     Wait Until Page Contains Element  dom=${TINY_MCE}
-    Execute JavaScript  ${INSERT_MCE}='${WO_YOUTUBE}'
-    Click button  name=form.button.save
-    Page Should Contain  ${T_YOUTUBE}
-    Page Should Not Contain  ${E_BLOCK}
-    Logout
-
-Test Create Page with Embedly
-    Log in as site owner
-    Go to  ${front-page}
-    Add page  With Embedly Page
-    Click Edit In Edit Bar
-    Wait Until Page Contains Element  dom=${TINY_MCE}
-    Execute JavaScript  ${INSERT_MCE}='${W_YOUTUBE}'
-    Click button  name=form.button.save
+    Execute JavaScript  ${INSERT_MCE}='${B_YOUTUBE}'
+    Click button  Save
+    Page Should Contain  Changes saved.
     Page Should Not Contain  ${T_YOUTUBE}
     Page Should Contain Element  ${E_BLOCK}
+    Logout
+
+Test Embedly Image
+    Log in as site owner
+    Go to  ${front-page}
+    Open Add New Menu
+    Click Link  link=Page
+    Wait Until Page Contains Element  title
+    Input Text  title  Page Embedly Image
+    Wait Until Page Contains Element  dom=${TINY_MCE}
+    Execute JavaScript  ${INSERT_MCE}='${B_FLICKR}'
+    Click button  Save
+    Page Should Contain  Changes saved.
+    Page Should Not Contain  ${T_FLICKR}
+    Page Should Contain Element  ${E_BLOCK}
+    Logout
+
+Test Embedly No Valid URL
+    Log in as site owner
+    Go to  ${front-page}
+    Open Add New Menu
+    Click Link  link=Page
+    Wait Until Page Contains Element  title
+    Input Text  title  Page Embedly No Valid URL
+    Wait Until Page Contains Element  dom=${TINY_MCE}
+    Execute JavaScript  ${INSERT_MCE}='${B_NO_VALID}'
+    Click button  Save
+    Page Should Contain  Changes saved.
+    Page Should Contain  ${T_NO_VALID}
+    Page Should Not Contain Element  ${E_BLOCK}
+    Logout
+
+Test No Embedly
+    Log in as site owner
+    Go to  ${front-page}
+    Open Add New Menu
+    Click Link  link=Page
+    Wait Until Page Contains Element  title
+    Input Text  title  Page No Embedly
+    Wait Until Page Contains Element  dom=${TINY_MCE}
+    Execute JavaScript  ${INSERT_MCE}='${B_NO_EMBEDLY}'
+    Click button  Save
+    Page Should Contain  Changes saved.
+    Page Should Contain  ${T_NO_EMBEDLY}
+    Page Should Not Contain Element  ${E_BLOCK}
     Logout
 
