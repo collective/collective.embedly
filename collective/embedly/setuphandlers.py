@@ -61,7 +61,7 @@ def setupTinyMCEsettings(portal):
     tool = getToolByName(portal, 'portal_tinymce', None)
     if tool is None:
         return
-    for key, value in TINYMCE:
+    for key, value in TINYMCE.items():
         tool_value = getattr(tool, key)
         items = tool_value.split('\n')
         if value not in items:
@@ -75,7 +75,7 @@ def removeTinyMCEsettings(portal):
     if tool is None:
         return
 
-    for key, value in TINYMCE:
+    for key, value in TINYMCE.items():
         tool_value = getattr(tool, key)
         items = tool_value.split('\n')
         if value in items:
