@@ -91,3 +91,9 @@ def removeVarious(context):
     portal = context.getSite()
     removeTransforms(portal)
     removeTMCEstyles(portal)
+
+
+def add_tinymce_plugin(context):
+    """Method to add TinyMCE plugin.
+    """
+    setup.runImportStepFromProfile('profile-collective.embedly:default', 'tinymce')
