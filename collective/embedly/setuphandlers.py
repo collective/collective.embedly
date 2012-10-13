@@ -2,7 +2,11 @@ from Products.CMFCore.utils import getToolByName
 import collective.embedly.transform
 TRANSFORM = 'embedly_transform'
 SAFE = 'text/x-html-safe'
-STYLE = 'Embedly link|a|embedlylink'
+TINYMCE = {
+    'styles': 'Embedly link|a|embedlylink',
+    'customplugins': 'embedly|/++resource++collective.embedly.plugin/editor_plugin.js',
+    'customtoolbarbuttons': 'embedlylink',
+}
 
 
 def setupTransforms(portal):
@@ -14,8 +18,9 @@ def setupTransforms(portal):
 
     # set policies
     for MT in (SAFE,):
-        policies = [required for (mimetype, required) in transform_tool.listPolicies()
-            if mimetype == MT]
+        policies = [required
+                    for (mimetype, required) in transform_tool.listPolicies()
+                    if mimetype == MT]
         if policies:
             transform_tool.manage_delPolicies([MT])
             required = list(policies.pop())
@@ -37,8 +42,9 @@ def removeTransforms(portal):
 
     # set policies
     for MT in (SAFE,):
-        policies = [required for (mimetype, required) in transform_tool.listPolicies()
-            if mimetype==MT]
+        policies = [required
+                    for (mimetype, required) in transform_tool.listPolicies()
+                    if mimetype == MT]
         if policies:
             transform_tool.manage_delPolicies([MT])
             required = list(policies.pop())
@@ -51,39 +57,51 @@ def removeTransforms(portal):
         transform_tool.manage_addPolicy(MT, required)
 
 
-def setupTMCEstyles(portal):
+def setupTinyMCEsettings(portal):
     tool = getToolByName(portal, 'portal_tinymce', None)
     if tool is None:
         return
-    styles = getattr(tool, 'styles')
-    items = styles.split('\n')
-    if STYLE not in items: 
-        items.append(STYLE)
-        styles = '\n'.join(items)
-        setattr(tool, 'styles', styles)
+    for key, value in TINYMCE.items():
+        tool_value = getattr(tool, key)
+        items = tool_value.split('\n')
+        if value not in items:
+            items.append(value)
+            tool_value = '\n'.join(items)
+            setattr(tool, key, tool_value)
 
 
-def removeTMCEstyles(portal):
+def removeTinyMCEsettings(portal):
     tool = getToolByName(portal, 'portal_tinymce', None)
     if tool is None:
         return
-    styles = getattr(tool, 'styles')
-    items = styles.split('\n')
-    if STYLE in items: 
-        items.remove(STYLE)
-        styles = '\n'.join(items)
-        setattr(tool, 'styles', styles)
+
+    for key, value in TINYMCE.items():
+        tool_value = getattr(tool, key)
+        items = tool_value.split('\n')
+        if value in items:
+            items.remove(value)
+            tool_value = '\n'.join(items)
+            setattr(tool, key, tool_value)
+
 
 def importVarious(context):
     if context.readDataFile('collective.embedly.install.txt') is None:
         return
     portal = context.getSite()
     setupTransforms(portal)
-    setupTMCEstyles(portal)
+    setupTinyMCEsettings(portal)
+
 
 def removeVarious(context):
     if context.readDataFile('collective.embedly.uninstall.txt') is None:
         return
     portal = context.getSite()
     removeTransforms(portal)
-    removeTMCEstyles(portal)
+    removeTinyMCEsettings(portal)
+
+
+def add_tinymce_plugin(context):
+    """Method to add TinyMCE plugin.
+    """
+    portal = context.getSite()
+    setupTinyMCEsettings(portal)

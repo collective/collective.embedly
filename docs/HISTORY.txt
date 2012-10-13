@@ -1,6 +1,14 @@
 Changelog
 =========
 
+2.0 - Future
+
+- change tests structure, added acceptance tests
+  [kroman0]
+
+- added TinyMCE plugin
+  [kroman0]
+
 1.7 - Nov 23, 2011
 ------------------
 

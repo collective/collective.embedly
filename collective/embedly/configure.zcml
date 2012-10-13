@@ -13,7 +13,18 @@
   <include package=".browser" />
 
   <five:registerPackage package="." initialize=".initialize" />
-
+  <genericsetup:importStep
+      name="collective.embedly.transforms"
+      title="Collective Embedly: transforms import steps"
+      description="Setup transforms"
+      handler="collective.embedly.setuphandlers.importVarious"
+      />
+  <genericsetup:importStep
+      name="collective.embedly.removetransforms"
+      title="Collective Embedly: transforms remove steps"
+      description="Remove transforms"
+      handler="collective.embedly.setuphandlers.removeVarious"
+      />
   <genericsetup:registerProfile
       name="default"
       title="collective.embedly"
@@ -27,6 +38,15 @@
       directory="profiles/uninstall"
       description="Uninstalls the collective.embedly package"
       provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+  <genericsetup:upgradeStep
+      title="Add TinyMCE Plugin"
+      description=""
+      source="1000"
+      destination="1001"
+      handler="collective.embedly.setuphandlers.add_tinymce_plugin"
+      sortkey="1"
+      profile="collective.embedly:default"
       />
   <!-- -*- extra stuff goes here -*- -->
   

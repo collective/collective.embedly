@@ -1,9 +1,16 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.7'
+version = '2.0'
 
-test_require = ['plone.app.testing']
+test_require = [
+    'plone.app.testing',
+    'plone.act',
+    'robotsuite',
+    'robotframework-selenium2library',
+    'decorator',
+    'selenium',
+]
 
 setup(name='collective.embedly',
       version=version,
@@ -14,10 +21,8 @@ setup(name='collective.embedly',
       # http://pypi.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         "Framework :: Plone",
-        "Framework :: Plone :: 4.0",
         "Framework :: Plone :: 4.1",
         "Framework :: Plone :: 4.2",
-        "Framework :: Plone :: 4.3",
         "Programming Language :: Python",
         "Development Status :: 5 - Production/Stable",
         "Environment :: Plugins",
