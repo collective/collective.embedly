@@ -1,0 +1,13 @@
+/*#external_panel { width:520px; }*/
+#advanced_panel { display: none; height: 374px; }
+.formHelp {
+    color: #555555;
+    display: block;
+    font-weight: normal;
+    margin: 0 0 0.2em;
+}
+#advanced_panel form .field {
+    clear: none;
+    width: 49%;
+    float: left;
+}

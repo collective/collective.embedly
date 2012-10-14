@@ -1,6 +1,7 @@
 from Products.Five.browser import BrowserView
 from collective.embedly.transform import update_services
 
+
 class UpdateServicesView(BrowserView):
     def __call__(self):
         if update_services():
