@@ -1,4 +1,6 @@
+from zope.interface import implements
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.interfaces import INonInstallable
 import collective.embedly.transform
 TRANSFORM = 'embedly_transform'
 SAFE = 'text/x-html-safe'
@@ -7,6 +9,17 @@ TINYMCE = {
     'customplugins': 'embedly|/++resource++collective.embedly.plugin/editor_plugin.js',
     'customtoolbarbuttons': 'embedlylink',
 }
+
+
+class HiddenProfiles(object):
+    implements(INonInstallable)
+
+    def getNonInstallableProfiles(self):
+        """
+        Prevents uninstall profile from showing up in the profile list
+        when creating a Plone site.
+        """
+        return [u'collective.embedly:uninstall']
 
 
 def setupTransforms(portal):

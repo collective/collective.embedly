@@ -155,7 +155,7 @@ function previewExternalLink() {
       if(params[i])
         elink += '&'+i+'='+params[i];
     }
-    var request = new XMLHttpRequest();
+    var request = new (window.XMLHttpRequest||ActiveXObject)("Microsoft.XMLHTTP");
     var preview = document.getElementById('previewexternal');
     request.open( "GET", elink, true );
     request.onreadystatechange = function () {
@@ -270,18 +270,8 @@ function setAllAttribs(elm) {
     var formButtonsObj = document.forms[2];
 
     var href = formGeneralObj.href.value;
-//     var target = getSelectValue(formAdvancedObj, 'targetlist');
-
-//     if (target == 'popup') {
-//         setAttrib(elm, 'href', getPopupHref(href), 0);
-//     } else {
-//         setAttrib(elm, 'href', href, 0);
-//     }
     setAttrib(elm, 'href', href, 0);
     setAttrib(elm, 'title', formAdvancedObj.title.value, 2);
-//     if ((target != '_self') && (target != 'popup')) {
-//         setAttrib(elm, 'target', target, 2);
-//     }
 
     var dom = tinyMCEPopup.editor.dom;
     dom.addClass(elm, 'embedlylink');
@@ -299,15 +289,6 @@ function getSelectValue(form_obj, field_name) {
 
     return elm.options[elm.selectedIndex].value;
 }
-
-// function displayPanel(elm_id) {
-//     document.getElementById ('internal_panel').style.display = elm_id == 'internal_panel' || elm_id == 'upload_panel' ? 'block' : 'none';
-//     document.getElementById ('internal_details_panel').style.display = elm_id == 'internal_panel' ? 'block' : 'none';
-//     document.getElementById ('external_panel').style.display = elm_id == 'external_panel' ? 'block' : 'none';
-//     document.getElementById ('mail_panel').style.display = elm_id == 'mail_panel' ? 'block' : 'none';
-//     document.getElementById ('anchors_panel').style.display = elm_id == 'anchors_panel' ? 'block' : 'none';
-//     document.getElementById ('upload_panel').style.display = elm_id == 'upload_panel' ? 'block' : 'none';
-// }
 
 // While loading
 preinit();

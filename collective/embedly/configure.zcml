@@ -48,6 +48,10 @@
       sortkey="1"
       profile="collective.embedly:default"
       />
+  <utility
+      factory=".setuphandlers.HiddenProfiles"
+      name="collective.embedly"
+      provides="Products.CMFPlone.interfaces.INonInstallable" />
   <!-- -*- extra stuff goes here -*- -->
   
 </configure>
