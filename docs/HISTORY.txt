@@ -3,10 +3,16 @@ Changelog
 
 2.0 - Future
 
-- change tests structure, added acceptance tests
+- change tests structure
+  [kroman0]
+
+- added acceptance tests
   [kroman0]
 
 - added TinyMCE plugin
+  [kroman0]
+
+- cleanup genericsetup profiles
   [kroman0]
 
 1.7 - Nov 23, 2011
