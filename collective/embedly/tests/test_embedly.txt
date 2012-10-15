@@ -6,21 +6,12 @@ Resource  plone/act/keywords.txt
 
 Variables  plone/app/testing/interfaces.py
 
-Suite Setup  Open browser  ${front-page}
+Suite Setup  Open Browser and login
 
 Suite Teardown  Close All Browsers
 
 
 *** Variables ***
-
-${front-page}  http://localhost:55001/plone/
-${test-folder}  http://localhost:55001/plone/acceptance-test-folder
-${install_form}  http://localhost:55001/plone/prefs_install_products_form
-
-${PORT} =  55001
-${ZOPE_URL} =  http://localhost:${PORT}
-${PLONE_URL} =  ${ZOPE_URL}/plone
-${BROWSER} =  Firefox
 
 ${T_NO_EMBEDLY} =  No Embedly Block
 ${L_NO_EMBEDLY} =  http://www.youtube.com/watch?v=L1NPLlhFTVk
@@ -46,62 +37,39 @@ ${E_BLOCK} =  css=div.embed
 *** Test Cases ***
 
 Test Embedly Video
-    Log in as site owner
-    Go to  ${front-page}
-    Open Add New Menu
-    Click Link  link=Page
-    Wait Until Page Contains Element  title
-    Input Text  title  Page Embedly Video
-    Wait Until Page Contains Element  dom=${TINY_MCE}
-    Execute JavaScript  ${INSERT_MCE}='${B_YOUTUBE}'
-    Click button  Save
-    Page Should Contain  Changes saved.
+    Create page with title Page Embedly Video and text ${B_YOUTUBE}
     Page Should Not Contain  ${T_YOUTUBE}
     Page Should Contain Element  ${E_BLOCK}
-    Logout
 
 Test Embedly Image
-    Log in as site owner
-    Go to  ${front-page}
-    Open Add New Menu
-    Click Link  link=Page
-    Wait Until Page Contains Element  title
-    Input Text  title  Page Embedly Image
-    Wait Until Page Contains Element  dom=${TINY_MCE}
-    Execute JavaScript  ${INSERT_MCE}='${B_FLICKR}'
-    Click button  Save
-    Page Should Contain  Changes saved.
+    Create page with title Page Embedly Image and text ${B_FLICKR}
     Page Should Not Contain  ${T_FLICKR}
     Page Should Contain Element  ${E_BLOCK}
-    Logout
 
 Test Embedly No Valid URL
-    Log in as site owner
-    Go to  ${front-page}
-    Open Add New Menu
-    Click Link  link=Page
-    Wait Until Page Contains Element  title
-    Input Text  title  Page Embedly No Valid URL
-    Wait Until Page Contains Element  dom=${TINY_MCE}
-    Execute JavaScript  ${INSERT_MCE}='${B_NO_VALID}'
-    Click button  Save
-    Page Should Contain  Changes saved.
+    Create page with title Page Embedly No Valid URL and text ${B_NO_VALID}
     Page Should Contain  ${T_NO_VALID}
     Page Should Not Contain Element  ${E_BLOCK}
-    Logout
 
 Test No Embedly
-    Log in as site owner
-    Go to  ${front-page}
+    Create page with title Page No Embedly and text ${B_NO_EMBEDLY}
+    Page Should Contain  ${T_NO_EMBEDLY}
+    Page Should Not Contain Element  ${E_BLOCK}
+
+
+*** Keywords ***
+
+Create page with title ${title} and text ${text}
     Open Add New Menu
     Click Link  link=Page
     Wait Until Page Contains Element  title
-    Input Text  title  Page No Embedly
+    Input Text  title  ${title}
     Wait Until Page Contains Element  dom=${TINY_MCE}
-    Execute JavaScript  ${INSERT_MCE}='${B_NO_EMBEDLY}'
+    Execute JavaScript  ${INSERT_MCE}='${text}'
     Click button  Save
     Page Should Contain  Changes saved.
-    Page Should Contain  ${T_NO_EMBEDLY}
-    Page Should Not Contain Element  ${E_BLOCK}
-    Logout
 
+Open Browser and login
+    Open browser  ${PLONE_URL}
+    Log in as site owner
+    Goto homepage
