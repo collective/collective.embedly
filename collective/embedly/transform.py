@@ -11,7 +11,10 @@ from plone.memoize import ram
 from plone.memoize.interfaces import ICacheChooser
 from time import time
 from urlparse import urlparse, parse_qsl
-from zope.app.component.hooks import getSite
+try:
+    from zope.app.component.hooks import getSite
+except ImportError:
+    from zope.component.hooks import getSite
 from zope.annotation.interfaces import IAnnotations
 from collective.embedly.interfaces import IEmbedlySettings
 
