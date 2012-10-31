@@ -76,11 +76,11 @@ def setupTinyMCEsettings(portal):
         return
     for key, value in TINYMCE.items():
         tool_value = getattr(tool, key)
-        items = tool_value.split('\n')
+        items = tool_value and tool_value.split('\n') or []
         if value not in items:
             items.append(value)
             tool_value = '\n'.join(items)
-            setattr(tool, key, tool_value)
+            setattr(tool, key, tool_value.decode())
 
 
 def removeTinyMCEsettings(portal):
@@ -90,11 +90,11 @@ def removeTinyMCEsettings(portal):
 
     for key, value in TINYMCE.items():
         tool_value = getattr(tool, key)
-        items = tool_value.split('\n')
+        items = tool_value and tool_value.split('\n') or []
         if value in items:
             items.remove(value)
             tool_value = '\n'.join(items)
-            setattr(tool, key, tool_value)
+            setattr(tool, key, tool_value.decode())
 
 
 def importVarious(context):
@@ -116,5 +116,4 @@ def removeVarious(context):
 def add_tinymce_plugin(context):
     """Method to add TinyMCE plugin.
     """
-    portal = context.getSite()
-    setupTinyMCEsettings(portal)
+    setupTinyMCEsettings(context)
