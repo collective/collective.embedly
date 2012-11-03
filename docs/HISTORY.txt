@@ -2,6 +2,7 @@ Changelog
 =========
 
 2.0 - Future
+------------
 
 - change tests structure
   [kroman0]
