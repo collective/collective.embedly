@@ -67,7 +67,7 @@ Create page with title ${title} and text ${text}
     Wait Until Page Contains Element  dom=${TINY_MCE}
     Execute JavaScript  ${INSERT_MCE}='${text}'
     Click button  Save
-    Page Should Contain  Changes saved.
+    Wait Until Page Contains  Changes saved.
 
 Open Browser and login
     Open browser  ${PLONE_URL}
