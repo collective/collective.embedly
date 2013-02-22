@@ -5,7 +5,6 @@ version = '2.0'
 
 test_require = [
     'plone.app.testing',
-    'plone.act',
     'robotsuite',
     'robotframework-selenium2library',
     'decorator',
