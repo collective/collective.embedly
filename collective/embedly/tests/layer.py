@@ -31,10 +31,6 @@ EMBEDLY_INTEGRATION_TESTING = IntegrationTesting(
     bases=(EMBEDLY_FIXTURE,),
     name="Embedly:Integration")
 
-EMBEDLY_FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(EMBEDLY_FIXTURE,),
-    name="Embedly:Functional")
-
 EMBEDLY_ACCEPTANCE_TESTING = FunctionalTesting(
     bases=(EMBEDLY_FIXTURE, z2.ZSERVER_FIXTURE),
     name="Embedly:Acceptance")

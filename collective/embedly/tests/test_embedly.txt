@@ -33,7 +33,6 @@ ${L_YOUTUBE} =  http://www.youtube.com/watch?v=L1NPLlhFTVk
 ${B_YOUTUBE} =  <a class="external-link embedlylink" href="${L_YOUTUBE}">${T_YOUTUBE}</a>
 
 ${TINY_MCE} =  document.getElementById('text_ifr')
-${INSERT_MCE} =  ${TINY_MCE}.contentDocument.body.innerHTML
 ${E_BLOCK} =  css=div.embed
 
 
@@ -68,7 +67,7 @@ Create page with title ${title} and text ${text}
     Wait Until Page Contains Element  title
     Input Text  title  ${title}
     Wait Until Page Contains Element  dom=${TINY_MCE}
-    Execute JavaScript  ${INSERT_MCE}='${text}'
+    Execute JavaScript  tinyMCE.activeEditor.setContent('${text}')
     Click button  Save
     Wait Until Page Contains  Changes saved.
 
