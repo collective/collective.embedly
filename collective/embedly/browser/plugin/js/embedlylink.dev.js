@@ -1,5 +1,5 @@
 /* Functions for the plonelink plugin popup */
-
+/*jslint evil: true */
 // tinyMCEPopup.requireLangPack();
 
 var templates = {
@@ -15,9 +15,9 @@ var value_getter = ['maxwidth', 'maxheight', 'width', 'callback', 'wmode', 'word
 var cheched_getter = ['allowscripts', 'nostyle', 'autoplay', 'videosrc'];
 
 function preinit() {
-    var url;
+    var url = tinyMCEPopup.getParam("external_link_list_url");
 
-    if (url = tinyMCEPopup.getParam("external_link_list_url"))
+    if (url)
         document.write('<script language="javascript" type="text/javascript" src="' + tinyMCEPopup.editor.documentBaseURI.toAbsolute(url) + '"></script>');
 }
 
@@ -29,19 +29,19 @@ function initData(href) {
             var x = paramslist[i].split("=");
             params[x[0]]=x[1];
         }
-        for (var i in value_getter) {
+        for (i in value_getter) {
             if (value_getter[i] in params) {
                 document.getElementById(value_getter[i]).value = params[value_getter[i]];
                 eparams.push(value_getter[i]);
             }
         }
-        for (var i in cheched_getter) {
+        for (i in cheched_getter) {
             if (cheched_getter[i] in params) {
                 document.getElementById(cheched_getter[i]).checked = true;
                 eparams.push(cheched_getter[i]);
             }
         }
-        for (var i in params) {
+        for (i in params) {
             if (eparams.indexOf(i)===-1) {
                 newparams.push(i+"="+params[i]);
             }
@@ -49,7 +49,7 @@ function initData(href) {
         hrefsplit[1] = newparams.join("&");
         href = hrefsplit.join("?");
     }
-    return href
+    return href;
 }
 
 function init() {
@@ -62,11 +62,12 @@ function init() {
     var elm = inst.selection.getNode();
     var action = "insert";
     var html;
+    var href;
     labels = eval(inst.getParam('labels'));
 
     // Check if update or insert
     elm = inst.dom.getParent(elm, "A");
-    if (elm != null && elm.nodeName == "A")
+    if (elm !== null && elm.nodeName == "A")
         action = "update";
 
     // Set button caption
@@ -78,12 +79,12 @@ function init() {
     }
 
     if (action == "update") {
-        var href = inst.dom.getAttrib(elm, 'href');
-        href = tinymce.trim(href)
+        href = inst.dom.getAttrib(elm, 'href');
+        href = tinymce.trim(href);
 
         // Setup form data
         setFormValue('href', href, 0);
-        if ((typeof(elm.title) != "undefined") && (elm.title != "")) {
+        if ((typeof(elm.title) != "undefined") && (elm.title !== "")) {
             setFormValue('title', inst.dom.getAttrib(elm, 'title'), 2);
         }
         href = initData(href);
@@ -91,7 +92,7 @@ function init() {
     } else {
         href = inst.selection.getContent();
         href = tinymce.trim(href);
-        if (href.indexOf('http') == 0) setFormValue('externalurl', href, 0);
+        if (href.indexOf('http') === 0) setFormValue('externalurl', href, 0);
     }
 }
 
@@ -112,7 +113,7 @@ function getAbsoluteUrl(base, link) {
     // Remove document from base url
     base_array.pop();
     
-    while (link_array.length != 0) {
+    while (link_array.length !== 0) {
         var item = link_array.shift();
         if (item == ".") {
             // Do nothing
@@ -136,7 +137,7 @@ function setAttrib(elm, attrib, value, formnr) {
     var valueElm = formObj.elements[attrib.toLowerCase()];
     var dom = tinyMCEPopup.editor.dom;
 
-    if (typeof(value) == "undefined" || value == null) {
+    if (typeof(value) == "undefined" || value === null) {
         value = "";
 
         if (valueElm)
@@ -150,12 +151,12 @@ function previewExternalLink() {
     var url = document.getElementById('externalurl').value;
     elink = "http://api.embed.ly/v1/api/oembed?format=json";
     params = {};
-    params['url'] = escape(url);
+    params.url = escape(url);
     for(var i in params){
       if(params[i])
         elink += '&'+i+'='+params[i];
     }
-    var request = new (window.XMLHttpRequest||ActiveXObject)("Microsoft.XMLHTTP");
+    var request = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
     var preview = document.getElementById('previewexternal');
     request.open( "GET", elink, true );
     request.onreadystatechange = function () {
@@ -179,7 +180,7 @@ function previewExternalLink() {
                     }
                     // Wrap the embed in our class for manipulation
                     pr = '<div class="embedly">'+code + '<div class="embedly-clear"></div>';
-                    pr += '<div class="media-attribution"><span>via </span><a href="'+resp.provider_url+'" class="media-attribution-link" target="_blank">'+resp.provider_name+'</a></span></div>'
+                    pr += '<div class="media-attribution"><span>via </span><a href="'+resp.provider_url+'" class="media-attribution-link" target="_blank">'+resp.provider_name+'</a></span></div>';
                     pr += '<div class="embedly-clear"></div></div>';
                     preview.innerHTML = pr;
                 }
@@ -197,19 +198,19 @@ function getInputValue(name, formnr) {
 }
 
 function buildHref() {
-    var href = "", params = [], name, title, i;
+    var href = "", params = [], name, title, i, value;
     var inst = tinyMCEPopup.editor;
 
     href = document.getElementById('externalurl').value;
-    for (var i in value_getter) {
-        var value = document.getElementById(value_getter[i]).value;
-        if (value != '') params[value_getter[i]] = value;
+    for (i in value_getter) {
+        value = document.getElementById(value_getter[i]).value;
+        if (value !== '') params[value_getter[i]] = value;
     }
-    for (var i in cheched_getter) {
-        var value = document.getElementById(cheched_getter[i]).checked;
+    for (i in cheched_getter) {
+        value = document.getElementById(cheched_getter[i]).checked;
         if (value) params[cheched_getter[i]] = 'true';
     }
-    for (var i in params) {
+    for (i in params) {
         if (href.indexOf("?") === -1) {
             href+="?";
         } else {
@@ -242,7 +243,7 @@ function insertAction() {
     tinyMCEPopup.execCommand("mceBeginUndoLevel");
 
     // Create new anchor elements
-    if (elm == null) {
+    if (elm === null) {
         inst.getDoc().execCommand("unlink", false, null);
         tinyMCEPopup.execCommand("CreateLink", false, "#mce_temp_url#", {skip_undo : 1});
 
@@ -284,7 +285,7 @@ function setAllAttribs(elm) {
 function getSelectValue(form_obj, field_name) {
     var elm = form_obj.elements[field_name];
 
-    if (!elm || elm.options == null || elm.selectedIndex == -1)
+    if (!elm || elm.options === null || elm.selectedIndex == -1)
         return "";
 
     return elm.options[elm.selectedIndex].value;

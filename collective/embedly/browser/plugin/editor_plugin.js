@@ -8,12 +8,12 @@
                     return;
                 a.windowManager.open({
                     file: b + "/embedly.htm",
-                    width: 820 + parseInt(a.getLang("plonelink.delta_width", 0)),
-                    height: 540 + parseInt(a.getLang("plonelink.delta_height", 0)),
+                    width: 820 + parseInt(a.getLang("plonelink.delta_width", 0), 10),
+                    height: 540 + parseInt(a.getLang("plonelink.delta_height", 0), 10),
                     inline: 1
                 }, {
                     plugin_url: b
-                })
+                });
             });
             a.addButton("embedlylink", {
                 title: "advanced.link_desc",
@@ -32,8 +32,8 @@
                 authorurl: "https://github.com/kroman0",
                 infourl: "http://plone.org/products/collective.embedly/",
                 version: tinymce.majorVersion + "." + tinymce.minorVersion
-            }
+            };
         }
     });
-    tinymce.PluginManager.add("embedly", tinymce.plugins.EmbedlyPlugin)
+    tinymce.PluginManager.add("embedly", tinymce.plugins.EmbedlyPlugin);
 }());
