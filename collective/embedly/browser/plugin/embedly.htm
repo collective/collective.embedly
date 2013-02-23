@@ -10,36 +10,41 @@
 </head>
 <body id="plonelink" class="icons-on">
   <div class="dialog-wrapper" id="content">
-    <ul class="formTabs"><li id="general_tab" class="formTab firstFormTab"><a href="javascript:mcTabs.displayTab('general_tab','general_panel');" onmousedown="return false;" class="selected"><span>General</span></a></li><li id="advanced_tab" class="formTab lastFormTab"><a href="javascript:mcTabs.displayTab('advanced_tab','advanced_panel');" onmousedown="return false;"><span>Advanced</span></a></li></ul>
+    <ul class="formTabs">
+      <li id="general_tab" class="formTab firstFormTab">
+        <a href="javascript:displayTab('general_tab','general_panel');" onmousedown="return false;" class="selected">
+          <span>General</span>
+        </a>
+      </li>
+      <li id="advanced_tab" class="formTab lastFormTab">
+        <a href="javascript:displayTab('advanced_tab','advanced_panel');" onmousedown="return false;">
+          <span>Advanced</span>
+        </a>
+      </li>
+    </ul>
 
-    <fieldset id="general_panel" class="formPanel">
-      <div id="internalpath" class="formHelp"></div>
+    <div id="general_panel" class="formPanel current">
       <form>
         <input type="hidden" name="href" id="href"/>
-
-        <fieldset id="external_panel" class="subPanel column">
-          <legend>External link</legend>
-          <div class="field">
-            <label for="externalurl">Link URL</label>
-            <div class="widget">
-              <input type="text" name="externalurl" id="externalurl" value="" size="30"/>
-              <input type="button" id="preview" class="context" name="preview" value="Preview" onclick="previewExternalLink();" />
-            </div>
+        <div class="field">
+          <label for="externalurl">Link URL</label>
+          <div class="widget">
+            <input type="text" name="externalurl" id="externalurl" value="" size="30"/>
+            <input type="button" id="preview" class="context" name="preview" value="Preview" onclick="previewExternalLink();" />
           </div>
+        </div>
 
-          <div class="field">
-            <label for="preview">Preview</label>
-            <div class="widget">
-              <div width="100%" height="242" class="input-border" name="previewexternal" id="previewexternal"></div>
-            </div>
+        <div class="field">
+          <label for="preview">Preview</label>
+          <div class="widget">
+            <div class="input-border" name="previewexternal" id="previewexternal"></div>
           </div>
-        </fieldset>
-
+        </div>
       </form>
 
-    </fieldset>
+    </div>
 
-    <fieldset id="advanced_panel" class="formPanel">
+    <div id="advanced_panel" class="formPanel panel">
       <form>
         <div class="field">
           <label for="maxwidth">maxwidth<span class="formHelp">This is the maximum width of the embed in pixels.</span></label>
@@ -117,7 +122,7 @@ The words parameter has a default value of 50 and works by trying to split the d
           </div>
         </div>
       </form>
-    </fieldset>
+    </div>
 
     <div class="visualClear"><!-- --></div>
 

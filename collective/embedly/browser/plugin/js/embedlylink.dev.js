@@ -2,6 +2,38 @@
 /*jslint evil: true */
 // tinyMCEPopup.requireLangPack();
 
+function displayTab(tab_id, panel_id) {
+    var panelElm, panelContainerElm, tabElm, tabContainerElm, nodes, i;
+    tabElm = document.getElementById(tab_id);
+    panelElm = document.getElementById(panel_id);
+    panelContainerElm = panelElm ? panelElm.parentNode : null;
+    tabContainerElm = tabElm ? tabElm.parentNode : null;
+    if (tabElm && tabContainerElm) {
+        nodes = tabContainerElm.childNodes;
+        // Hide all other tabs
+        for (i = 0; i < nodes.length; i++) {
+            if (nodes[i].nodeName == "LI") {
+                nodes[i].getElementsByTagName("a")[0].className = '';
+                nodes[i].tabIndex = -1;
+            }
+        }
+        // Show selected tab
+        tabElm.getElementsByTagName("a")[0].className = 'selected';
+        tabElm.tabIndex = 0;
+    }
+    if (panelElm && panelContainerElm) {
+        nodes = panelContainerElm.childNodes;
+        // Hide all other panels
+        for (i = 0; i < nodes.length; i++) {
+            if (nodes[i].nodeName == "DIV") {
+                nodes[i].className = 'panel';
+            }
+        }
+        // Show selected panel
+        panelElm.className = 'current';
+    }
+};
+
 var templates = {
     "window.open" : "window.open('${url}','${target}','${options}')"
 };
@@ -179,9 +211,7 @@ function previewExternalLink() {
                         code += description;
                     }
                     // Wrap the embed in our class for manipulation
-                    pr = '<div class="embedly">'+code + '<div class="embedly-clear"></div>';
-                    pr += '<div class="media-attribution"><span>via </span><a href="'+resp.provider_url+'" class="media-attribution-link" target="_blank">'+resp.provider_name+'</a></span></div>';
-                    pr += '<div class="embedly-clear"></div></div>';
+                    pr = '<div class="embedly">'+code + '</div>';
                     preview.innerHTML = pr;
                 }
             } else { 

@@ -1,5 +1,10 @@
 /*#external_panel { width:520px; }*/
-#advanced_panel { display: none; height: 374px; }
+#advanced_panel {
+    height: 374px;
+}
+.panel {
+    display: none;
+}
 .formHelp {
     color: #555555;
     display: block;
