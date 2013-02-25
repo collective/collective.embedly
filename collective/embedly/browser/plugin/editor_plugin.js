@@ -16,7 +16,7 @@
                 });
             });
             a.addButton("embedlylink", {
-                title: "advanced.link_desc",
+                title: "Insert/Edit Embedly link",
                 cmd: "mceEmbedlyLink",
                 image: '/++resource++embedly.png'
             });
