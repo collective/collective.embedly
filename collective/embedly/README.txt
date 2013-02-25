@@ -21,23 +21,18 @@ Usage
 
 To embed media from the embedly-supported external resource to Plone:
 
-* Go to the object's edit form, select some text and choose 'Embedly link' style 
-  for it.
+* Go to the object's edit form, select some text and click  
+  'Insert/Edit Embedly link' button.
+
+* In the panel add link and configure extra parameters in 'Advanced' tab.
+  Check http://embed.ly/docs/arguments for params description.
 
 * The text should now look like linked. TinyMCE makes the whole passage linked, 
   so keep in mind that the whole passage will later be substituted with 
   embedded media.
-   
-* Select this text again and go to Insert link to insert the URL to the desired 
-  object on the external service.
-   
+  
 * Save this page. Now when rendered, there will be "preview" from embed.ly 
   service inserted instead of the linked text.
-  
-* You can pass resize the embeded object passing 'maxwidth', 'maxheight' params.
-  Example: http://www.youtube.com/watch?v=L1NPLlhFTVk&maxwidth=400&maxheight=300
-
-* Also 'wmode' and 'callback' are available. Consult embed.ly documentation for usage.
 
 More about usage at http://projects.quintagroup.com/products/wiki/collective.embedly
 
