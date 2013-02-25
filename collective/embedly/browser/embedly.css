@@ -1,5 +1,4 @@
-.mceContentBody a 
-.embedlylink {
+.mceContentBody a.embedlylink {
   background:url(++resource++embedly.png) no-repeat 0 0 #fee4cb;
   border-bottom:0;
   color:#275c9d !important;
