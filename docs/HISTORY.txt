@@ -1,8 +1,8 @@
 Changelog
 =========
 
-2.0 - Future
-------------
+2.0 - Feb 25, 2013
+------------------
 
 - change tests structure
   [kroman0]
