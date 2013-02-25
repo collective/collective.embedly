@@ -5,10 +5,13 @@ import collective.embedly.transform
 TRANSFORM = 'embedly_transform'
 SAFE = 'text/x-html-safe'
 TINYMCE = {
-    'styles': 'Embedly link|a|embedlylink',
     'customplugins': 'embedly|/++resource++collective.embedly.plugin/editor_plugin.js',
     'customtoolbarbuttons': 'embedlylink',
 }
+TINYMCEDROP = TINYMCE.copy()
+TINYMCEDROP.update({
+    'styles': 'Embedly link|a|embedlylink',
+})
 
 
 class HiddenProfiles(object):
@@ -88,7 +91,7 @@ def removeTinyMCEsettings(portal):
     if tool is None:
         return
 
-    for key, value in TINYMCE.items():
+    for key, value in TINYMCEDROP.items():
         tool_value = getattr(tool, key)
         items = tool_value and tool_value.split('\n') or []
         if value in items:
@@ -116,4 +119,5 @@ def removeVarious(context):
 def add_tinymce_plugin(context):
     """Method to add TinyMCE plugin.
     """
+    removeTinyMCEsettings(context)
     setupTinyMCEsettings(context)
