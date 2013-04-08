@@ -15,7 +15,7 @@ setup(name='collective.embedly',
       version=version,
       description="TinyMCE visual editor support for embed.ly service",
       long_description=open(os.path.join("collective", "embedly", "README.txt")).read() + "\n" +
-                       open(os.path.join("docs", "HISTORY.txt")).read(),
+                       open(os.path.join("docs", "HISTORY.rst")).read(),
       # Get more strings from
       # http://pypi.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
