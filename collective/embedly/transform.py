@@ -83,7 +83,8 @@ def get_oembed(url, api_key):
         curl = curl + '?' + source_query
     if embedly_query:
         embedly_query = '&' + embedly_query
-    fetch_url = 'http://api.embed.ly/v1/api/oembed?%surl=%s%s&format=json' % (api_key_string, urllib2.quote(curl), embedly_query)
+    fetch_url = 'http://api.embed.ly/v1/api/oembed?%surl=%s%s&format=json' % \
+        (api_key_string, urllib2.quote(curl.encode('utf-8')), embedly_query)
     logger.debug("HREF:%s URL:%s" % (url, fetch_url))
     try:
         result = urllib2.urlopen(fetch_url).read()
