@@ -1,6 +1,15 @@
 Changelog
 =========
 
+after 2.0
+---------
+
+- support urls containing non-asci characters such as
+  http://maps.google.com/maps?q=%C3%96sterreich
+  (fixes #5)
+  
+  [fRiSi]
+
 2.0 - Feb 25, 2013
 ------------------
 
