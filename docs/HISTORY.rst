@@ -1,8 +1,11 @@
 Changelog
 =========
 
-after 2.0
----------
+2.1 - Apr 19, 2013
+------------------
+
+- Updated embed.ly api url
+  [kroman0]
 
 - support urls containing non-asci characters such as
   http://maps.google.com/maps?q=%C3%96sterreich
