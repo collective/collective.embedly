@@ -44,9 +44,9 @@ Note
 * you can check if your URL will be transformed calling embed.ly manualy, for example:
 
    o video URL http://www.youtube.com/watch?v=L1NPLlhFTVk
-   o you should call http://api.embed.ly/v1/api/oembed setting 'url' parameter with your value
-   o http://api.embed.ly/v1/api/oembed?url=http://www.youtube.com/watch?v=L1NPLlhFTVk
-   o http://api.embed.ly/v1/api/oembed?url=http://www.youtube.com/watch?v=L1NPLlhFTVk&fromat=xml format result as xml
+   o you should call http://api.embed.ly/1/oembed setting 'url' parameter with your value
+   o http://api.embed.ly/1/oembed?url=http://www.youtube.com/watch?v=L1NPLlhFTVk
+   o http://api.embed.ly/1/oembed?url=http://www.youtube.com/watch?v=L1NPLlhFTVk&fromat=xml format result as xml
 
 * You can set the API key by going to Site Setup -> Configuration Registry and
   setting the api_key value. The default is to not pass along a key, your

@@ -46,7 +46,7 @@ def clear_cache():
 
 
 def update_services():
-    resp = urllib2.urlopen('http://api.embed.ly/v1/api/services/python')
+    resp = urllib2.urlopen('http://api.embed.ly/1/services/python')
     if resp.getcode() == 200:
         list_exp = []
         for service in json.loads(resp.read()):
@@ -83,7 +83,7 @@ def get_oembed(url, api_key):
         curl = curl + '?' + source_query
     if embedly_query:
         embedly_query = '&' + embedly_query
-    fetch_url = 'http://api.embed.ly/v1/api/oembed?%surl=%s%s&format=json' % \
+    fetch_url = 'http://api.embed.ly/1/oembed?%surl=%s%s&format=json' % \
         (api_key_string, urllib2.quote(curl.encode('utf-8')), embedly_query)
     logger.debug("HREF:%s URL:%s" % (url, fetch_url))
     try:

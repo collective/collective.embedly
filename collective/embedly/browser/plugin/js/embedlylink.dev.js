@@ -181,7 +181,7 @@ function setAttrib(elm, attrib, value, formnr) {
 
 function previewExternalLink() {
     var url = document.getElementById('externalurl').value;
-    elink = "http://api.embed.ly/v1/api/oembed?format=json";
+    elink = "http://api.embed.ly/1/oembed?format=json";
     params = {};
     params.url = escape(url);
     for(var i in params){

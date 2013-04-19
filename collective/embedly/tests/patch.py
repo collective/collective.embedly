@@ -24,7 +24,7 @@ class dummy_urlopen():
 
     def read(self):
 
-        if self.url == 'http://api.embed.ly/v1/api/services/python':
+        if self.url == 'http://api.embed.ly/1/services/python':
             # embedly services query
             return dummy_services
 

@@ -34,7 +34,7 @@ class TestSetup(unittest.TestCase):
         self.assertEqual(storage.get('collective.embedly.services'), None)
         update_services()
 
-        res = urllib2.urlopen('http://api.embed.ly/v1/api/services/python')
+        res = urllib2.urlopen('http://api.embed.ly/1/services/python')
         list_exp = []
         for service in json.loads(res.read()):
             list_exp.append('|'.join(service.get('regex', [])))
