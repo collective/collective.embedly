@@ -2,6 +2,9 @@ from zope.interface import implements
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import INonInstallable
 import collective.embedly.transform
+from zope.component import getUtility
+from plone.registry.interfaces import IRegistry
+from collective.embedly.interfaces import IEmbedlySettings
 TRANSFORM = 'embedly_transform'
 SAFE = 'text/x-html-safe'
 TINYMCE = {
@@ -121,3 +124,9 @@ def add_tinymce_plugin(context):
     """
     removeTinyMCEsettings(context)
     setupTinyMCEsettings(context)
+
+def add_use_services_regexp(context):
+    """Method to add use_services_regexp field to registry.
+    """
+    registry = getUtility(IRegistry)
+    registry.registerInterface(IEmbedlySettings)

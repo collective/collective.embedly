@@ -106,12 +106,17 @@ def match(url):
 def replace(matchobj):
     url = matchobj.groupdict().get('url', None)
 
+    registry = getUtility(IRegistry)
+    try:
+        embedly_settings = registry.forInterface(IEmbedlySettings)
+    except KeyError:
+        registry.registerInterface(IEmbedlySettings)
+        embedly_settings = registry.forInterface(IEmbedlySettings)
+
     #Not Something Embedly Handles
-    if not match(url):
+    if embedly_settings.use_services_regexp and not match(url):
         return matchobj.group()
 
-    registry = getUtility(IRegistry)
-    embedly_settings = registry.forInterface(IEmbedlySettings)
     # We pass in the url AND the api_key so that if we change the
     # key, it will fetch against the new key.
     oembed = get_oembed(url, embedly_settings.api_key)

@@ -13,7 +13,17 @@ class IEmbedlySettings(Interface):
         title=_(u"API Key"),
         description=_(
             u"Enter the API key given to you by Embedly. It can be found by "
-            "logging into Embedly and going to your dashboard."
+            u"logging into Embedly and going to your dashboard."
         ),
+        required=False,
+    )
+
+    use_services_regexp = schema.Bool(
+        title=_(u"Use services regexp"),
+        description=_(
+            u"Use Embedly Services API for checking url before getting "
+            u"oembed result."
+        ),
+        default=True,
         required=False,
     )

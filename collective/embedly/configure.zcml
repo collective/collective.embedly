@@ -48,6 +48,15 @@
       sortkey="1"
       profile="collective.embedly:default"
       />
+  <genericsetup:upgradeStep
+      title="Add use_services_regexp field to registry"
+      description=""
+      source="1001"
+      destination="1002"
+      handler="collective.embedly.setuphandlers.add_use_services_regexp"
+      sortkey="2"
+      profile="collective.embedly:default"
+      />
   <utility
       factory=".setuphandlers.HiddenProfiles"
       name="collective.embedly"

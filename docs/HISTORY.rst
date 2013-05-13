@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.1 - Apr 19, 2013
+2.1 - May 13, 2013
 ------------------
 
 - Updated embed.ly api url
@@ -10,8 +10,11 @@ Changelog
 - support urls containing non-asci characters such as
   http://maps.google.com/maps?q=%C3%96sterreich
   (fixes #5)
-  
   [fRiSi]
+
+- added 'Use services regexp' bool field to registry.
+  (fixes #4)
+  [kroman0]
 
 2.0 - Feb 25, 2013
 ------------------
