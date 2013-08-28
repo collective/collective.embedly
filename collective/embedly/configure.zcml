@@ -53,8 +53,17 @@
       description=""
       source="1001"
       destination="1002"
-      handler="collective.embedly.setuphandlers.add_use_services_regexp"
+      handler="collective.embedly.setuphandlers.update_registry"
       sortkey="2"
+      profile="collective.embedly:default"
+      />
+  <genericsetup:upgradeStep
+      title="Add persistent_cache and cache_timeout fields to registry"
+      description=""
+      source="1002"
+      destination="1003"
+      handler="collective.embedly.setuphandlers.update_registry"
+      sortkey="3"
       profile="collective.embedly:default"
       />
   <utility

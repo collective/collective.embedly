@@ -127,8 +127,8 @@ def add_tinymce_plugin(context):
     setupTinyMCEsettings(context)
 
 
-def add_use_services_regexp(context):
-    """Method to add use_services_regexp field to registry.
+def update_registry(context):
+    """Method to update fields in registry.
     """
     registry = getUtility(IRegistry)
     registry.registerInterface(IEmbedlySettings)
