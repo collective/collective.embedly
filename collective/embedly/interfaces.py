@@ -6,7 +6,8 @@ _ = MessageFactory(u"collective.embedly")
 
 
 class IEmbedlySettings(Interface):
-    """Settings for the Embedly transform
+    """
+    Settings for the Embedly transform
     """
 
     api_key = schema.TextLine(
@@ -25,5 +26,21 @@ class IEmbedlySettings(Interface):
             u"oembed result."
         ),
         default=True,
+        required=False,
+    )
+
+    persistent_cache = schema.Bool(
+        title=_(u"Use persistent cache"),
+        description=_(
+            u"Use persistent cache for Embedly Services API call's responses."
+        ),
+        default=False,
+        required=False,
+    )
+
+    cache_timeout = schema.Int(
+        title=_(u"Cache timeout"),
+        description=_(u"Time is seconds to invalidate cache."),
+        default=60 * 60 * 24,
         required=False,
     )
