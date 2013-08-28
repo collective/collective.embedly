@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.2 - Aug 28, 2013
+------------------
+
+- Added persitent cache and cache timeout
+  [kroman0]
+
 2.1 - May 13, 2013
 ------------------
 
