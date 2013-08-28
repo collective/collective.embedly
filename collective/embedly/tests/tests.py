@@ -3,7 +3,9 @@ import json
 import robotsuite
 import unittest2 as unittest
 
-from zope.component import getUtility
+from zope.component import getUtility, queryUtility
+
+from zope.ramcache.interfaces.ram import IRAMCache
 
 from plone.registry.interfaces import IRegistry
 
@@ -21,6 +23,9 @@ from collective.embedly.transform import match, update_services
 from collective.embedly.tests.layer import EMBEDLY_INTEGRATION_TESTING
 from collective.embedly.tests.layer import EMBEDLY_ACCEPTANCE_TESTING
 from collective.embedly.tests.patch import json_result
+
+
+embedly_filter = lambda i: i['path'] == 'collective.embedly.transform.get_oembed'
 
 
 class TestSetup(unittest.TestCase):
@@ -43,7 +48,7 @@ class TestSetup(unittest.TestCase):
     def test_embedly_params(self):
         """ Test query with additional embedly parameters """
         url = "http://www.youtube.com/watch?v=L1NPLlhFTVk&maxwidth=10&maxheight=10"
-        res = get_oembed(url, None)
+        res = get_oembed(url)
         self.assertEqual(res, json_result)
 
     def test_match_normal_url(self):
@@ -72,6 +77,64 @@ class TestSetup(unittest.TestCase):
 
         res = get_oembed(self.obj_url, embedly_settings.api_key)
         self.assertEqual(res, json_result)
+
+    def test_persistent_cache(self):
+        """ Test persistent cache """
+        registry = getUtility(IRegistry)
+        embedly_settings = registry.forInterface(IEmbedlySettings)
+        self.assertFalse(embedly_settings.persistent_cache)
+
+        embedly_settings.persistent_cache = True
+        res = get_oembed(self.obj_url)
+        self.assertEqual(res, json_result)
+
+    def test_persistent_entries(self):
+        """ Test persistent cache entries """
+        registry = getUtility(IRegistry)
+        embedly_settings = registry.forInterface(IEmbedlySettings)
+        embedly_settings.persistent_cache = True
+        res = get_oembed(self.obj_url)
+        self.assertEqual(res, json_result)
+        storage = IAnnotations(self.layer['portal'])
+        self.assertEqual(1, len(storage['_embedly_persistent_']))
+
+    def test_persistent_timeout(self):
+        """ Test persistent cache timeout """
+        registry = getUtility(IRegistry)
+        embedly_settings = registry.forInterface(IEmbedlySettings)
+        embedly_settings.persistent_cache = True
+        get_oembed(self.obj_url)
+        storage = IAnnotations(self.layer['portal'])
+        self.assertEqual(1, len(storage['_embedly_persistent_']))
+        embedly_settings.cache_timeout = 1
+        get_oembed(self.obj_url)
+        self.assertEqual(2, len(storage['_embedly_persistent_']))
+
+    def test_cache_timeout(self):
+        """ Test cache timeout """
+        ramcache = queryUtility(IRAMCache)
+        registry = getUtility(IRegistry)
+        embedly_settings = registry.forInterface(IEmbedlySettings)
+        get_oembed(self.obj_url)
+        stats = filter(embedly_filter, ramcache.getStatistics())
+        self.assertEqual(1, stats[0]['entries'])
+        embedly_settings.cache_timeout = 1
+        get_oembed(self.obj_url)
+        stats = filter(embedly_filter, ramcache.getStatistics())
+        self.assertEqual(2, stats[0]['entries'])
+
+    def test_cache_stats(self):
+        """ Test cache stats """
+        ramcache = queryUtility(IRAMCache)
+        get_oembed(self.obj_url)
+        stats = filter(embedly_filter, ramcache.getStatistics())
+        self.assertEqual(0, stats[0]['hits'])
+        get_oembed(self.obj_url)
+        stats = filter(embedly_filter, ramcache.getStatistics())
+        self.assertEqual(1, stats[0]['hits'])
+        get_oembed(self.obj_url)
+        stats = filter(embedly_filter, ramcache.getStatistics())
+        self.assertEqual(2, stats[0]['hits'])
 
     def test_normal_key(self):
         """ Test query with embedly api_key """
