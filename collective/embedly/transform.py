@@ -67,8 +67,69 @@ def get_services_regexp():
     return embedly_re
 
 
-@ram.cache(lambda method, url, api_key: (time() // (60 * 60 * 24), url, api_key))
-def get_oembed(url, api_key):
+_marker = object()
+
+
+class EmbedlyPersistent(object):
+    propname = '_embedly_persistent_'
+
+    def clear(self):
+        annotations = IAnnotations(getSite())
+        if self.propname in annotations:
+            del annotations[self.propname]
+
+    def memoize(self, func):
+        def memogetter(url, api_key):
+            annotations = IAnnotations(getSite())
+            cache = annotations.get(self.propname, _marker)
+            if cache is _marker:
+                annotations[self.propname] = dict()
+                cache = annotations.get(self.propname)
+
+            key = get_oembed_cache_key(func.__name__, url, api_key)
+            val = cache.get(key, _marker)
+            if val is _marker:
+                val = func(url, api_key)
+                cache[key] = val
+                annotations[self.propname] = cache
+            return val
+        return memogetter
+
+
+_m = EmbedlyPersistent()
+
+
+def get_oembed_cache_key(method, url, api_key):
+    timeout = get_embedly_settings('cache_timeout')
+    timeout = timeout if isinstance(timeout, type(0)) else 60 * 60 * 24
+    return (
+        time() // timeout if timeout else timeout,
+        url,
+        api_key
+    )
+
+
+def get_oembed_cache(f):
+    def func(url, api_key=None):
+        persistent = get_embedly_settings('persistent_cache')
+        persistent = persistent if isinstance(persistent, type(True)) else False
+        if persistent:
+            return _m.memoize(f)(url, api_key)
+        return ram.cache(get_oembed_cache_key)(f)(url, api_key)
+    return func
+
+
+def get_embedly_settings(name):
+    registry = getUtility(IRegistry)
+    settings = registry.forInterface(IEmbedlySettings, check=False)
+    value = getattr(settings, name)
+    if value == settings.__schema__[name].missing_value:
+        value = settings.__schema__[name].default
+    return value
+
+
+@get_oembed_cache
+def get_oembed(url, api_key=None):
     url = url.replace('&amp;', '&')
     parts = urlparse(url)
     pms = parse_qsl(parts.query)
@@ -106,20 +167,13 @@ def match(url):
 def replace(matchobj):
     url = matchobj.groupdict().get('url', None)
 
-    registry = getUtility(IRegistry)
-    try:
-        embedly_settings = registry.forInterface(IEmbedlySettings)
-    except KeyError:
-        registry.registerInterface(IEmbedlySettings)
-        embedly_settings = registry.forInterface(IEmbedlySettings)
-
     #Not Something Embedly Handles
-    if embedly_settings.use_services_regexp and not match(url):
+    if get_embedly_settings('use_services_regexp') and not match(url):
         return matchobj.group()
 
     # We pass in the url AND the api_key so that if we change the
     # key, it will fetch against the new key.
-    oembed = get_oembed(url, embedly_settings.api_key)
+    oembed = get_oembed(url, get_embedly_settings('api_key'))
     #embed was not found or it's a link type
     if oembed is None or oembed['type'] == 'link':
         return matchobj.group()
