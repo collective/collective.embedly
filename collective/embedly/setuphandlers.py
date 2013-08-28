@@ -33,7 +33,8 @@ def setupTransforms(portal):
     # add transform
     transform_tool = getToolByName(portal, 'portal_transforms')
     if not hasattr(transform_tool, TRANSFORM):
-        transform_tool.manage_addTransform(TRANSFORM, 'collective.embedly.transform')
+        transform_tool.manage_addTransform(
+            TRANSFORM, 'collective.embedly.transform')
 
     # set policies
     for MT in (SAFE,):
@@ -124,6 +125,7 @@ def add_tinymce_plugin(context):
     """
     removeTinyMCEsettings(context)
     setupTinyMCEsettings(context)
+
 
 def add_use_services_regexp(context):
     """Method to add use_services_regexp field to registry.
