@@ -90,8 +90,9 @@ class EmbedlyPersistent(object):
             val = cache.get(key, _marker)
             if val is _marker:
                 val = func(url, api_key)
-                cache[key] = val
-                annotations[self.propname] = cache
+                if val:
+                    cache[key] = val
+                    annotations[self.propname] = cache
             return val
         return memogetter
 
@@ -101,7 +102,6 @@ _m = EmbedlyPersistent()
 
 def get_oembed_cache_key(method, url, api_key):
     timeout = get_embedly_settings('cache_timeout')
-    timeout = timeout if isinstance(timeout, type(0)) else 60 * 60 * 24
     return (
         time() // timeout if timeout else timeout,
         url,
@@ -111,9 +111,7 @@ def get_oembed_cache_key(method, url, api_key):
 
 def get_oembed_cache(f):
     def func(url, api_key=None):
-        persistent = get_embedly_settings('persistent_cache')
-        persistent = persistent if isinstance(persistent, type(True)) else False
-        if persistent:
+        if get_embedly_settings('persistent_cache'):
             return _m.memoize(f)(url, api_key)
         return ram.cache(get_oembed_cache_key)(f)(url, api_key)
     return func

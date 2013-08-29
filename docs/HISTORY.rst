@@ -1,10 +1,13 @@
 Changelog
 =========
 
-2.2 - Aug 28, 2013
+2.2 - Aug 29, 2013
 ------------------
 
-- Added persitent cache and cache timeout
+- Don't cache errors in persistent cache
+  [kroman0]
+
+- Added persistent cache and cache timeout
   [kroman0]
 
 2.1 - May 13, 2013
