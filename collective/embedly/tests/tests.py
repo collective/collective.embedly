@@ -110,6 +110,17 @@ class TestSetup(unittest.TestCase):
         get_oembed(self.obj_url)
         self.assertEqual(2, len(storage['_embedly_persistent_']))
 
+    def test_persistent_error(self):
+        """ Test persistent not cache error """
+        registry = getUtility(IRegistry)
+        embedly_settings = registry.forInterface(IEmbedlySettings)
+        embedly_settings.persistent_cache = True
+        get_oembed(self.obj_url, u'1234')
+        storage = IAnnotations(self.layer['portal'])
+        self.assertEqual(0, len(storage['_embedly_persistent_']))
+        get_oembed(self.obj_url)
+        self.assertEqual(1, len(storage['_embedly_persistent_']))
+
     def test_cache_timeout(self):
         """ Test cache timeout """
         ramcache = queryUtility(IRAMCache)
