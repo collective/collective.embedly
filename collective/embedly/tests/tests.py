@@ -19,7 +19,7 @@ from zope.annotation.interfaces import IAnnotations
 
 from collective.embedly.interfaces import IEmbedlySettings
 from collective.embedly.transform import get_oembed, parse
-from collective.embedly.transform import match, update_services
+from collective.embedly.transform import match
 from collective.embedly.tests.layer import EMBEDLY_INTEGRATION_TESTING
 from collective.embedly.tests.layer import EMBEDLY_ACCEPTANCE_TESTING
 from collective.embedly.tests.patch import json_result
@@ -37,7 +37,9 @@ class TestSetup(unittest.TestCase):
         portal = self.layer['portal']
         storage = IAnnotations(portal)
         self.assertEqual(storage.get('collective.embedly.services'), None)
-        update_services()
+        #update_services()
+        view = portal.unrestrictedTraverse("@@update_embedly_services")
+        view.__of__(portal)()
 
         res = urllib2.urlopen('http://api.embed.ly/1/services/python')
         list_exp = []
