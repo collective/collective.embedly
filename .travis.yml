@@ -5,8 +5,10 @@ python:
 env:
   - PLONE=4.1
   - PLONE=4.2
-  - PLONE=4.3
+  - PLONE=4.3 QA=true
 matrix:
+  global:
+    - secure: "PiqlxDfjGi0j9uUl0p/fBzt9YzvzKwMCgae+5xZPdRocNd68gRv1O7XQslDo\nE/nzXhrwAz1G+9JcTbfjAgnNhc2V1pCpLf2ZQRQaYsoIlVb0CPHQXbblRAL/\nz2pYgpcZaClkbGrsjmkg0bTE5Y43cwfPwuQVhAJj7dWaMF58Haw="
   exclude:
     - python: 2.7
       env: PLONE=4.1
@@ -27,3 +29,4 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
 script:
   - bin/test
+after_success: test -v QA && bin/coverage.sh && pip install -q coveralls && coveralls || true
