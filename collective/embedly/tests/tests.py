@@ -213,6 +213,13 @@ class TestSetup(unittest.TestCase):
 
         self.assertTrue(res.startswith('<div class="embed">'))
 
+    def test_uninstall(self):
+        """ Test uninstall """
+        portal = self.layer['portal']
+        qi = portal.portal_quickinstaller
+        qi.uninstallProducts(products=['collective.embedly'])
+        self.assertFalse(qi.isProductInstalled('collective.embedly'))
+
 
 def test_suite():
     suite = unittest.TestSuite()
