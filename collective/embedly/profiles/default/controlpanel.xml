@@ -6,10 +6,10 @@
     purge="False">
 
     <configlet
-        title="Embedly settings"
+        title="Embedly"
         action_id="collective.embedly"
         appId="collective.embedly"
-        category=""
+        category="Products"
         condition_expr=""
         url_expr="string:${portal_url}/@@embedly-controlpanel"
         icon_expr="string:${portal_url}/++resource++embedly.png"

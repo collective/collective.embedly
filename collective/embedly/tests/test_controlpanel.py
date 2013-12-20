@@ -27,6 +27,14 @@ class TestControlPanel(unittest.TestCase):
         self.browser.getControl(name='submit').click()
         self.browser.getLink('Continue to the Plone site home page').click()
 
+    def testControlPanel(self):
+        """
+        Test control panel access
+        """
+        browser = self.browser
+        browser.open('http://nohost/plone/plone_control_panel')
+        self.failUnless('Embedly' in self.browser.contents)
+
     def testCancel(self):
         """
         Test cancel button
