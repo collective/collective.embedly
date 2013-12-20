@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<object
+    name="portal_controlpanel"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="collective.embedly"
+    purge="False">
+
+    <configlet
+        title="Embedly settings"
+        action_id="collective.embedly"
+        appId="collective.embedly"
+        category=""
+        condition_expr=""
+        url_expr="string:${portal_url}/@@embedly-controlpanel"
+        icon_expr="string:${portal_url}/++resource++embedly.png"
+        visible="True"
+        i18n:attributes="title">
+            <permission>Manage portal</permission>
+    </configlet>
+
+</object>

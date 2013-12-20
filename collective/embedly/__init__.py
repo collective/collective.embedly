@@ -1,4 +1,7 @@
 # -*- extra stuff goes here -*-
+from zope.i18nmessageid import MessageFactory
+
+embedlyMessageFactory = MessageFactory(u"collective.embedly")
 
 
 def initialize(context):

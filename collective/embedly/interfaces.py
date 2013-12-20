@@ -1,8 +1,6 @@
 from zope import schema
 from zope.interface import Interface
-from zope.i18nmessageid import MessageFactory
-
-_ = MessageFactory(u"collective.embedly")
+from collective.embedly import embedlyMessageFactory as _
 
 
 class IEmbedlySettings(Interface):
