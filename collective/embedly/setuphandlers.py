@@ -132,3 +132,11 @@ def update_registry(context):
     """
     registry = getUtility(IRegistry)
     registry.registerInterface(IEmbedlySettings)
+
+
+def update_controlpanel(context):
+    """Method to update control panel.
+    """
+    setup = getToolByName(context, 'portal_setup')
+    setup.runImportStepFromProfile('profile-collective.embedly:default',
+                                   'controlpanel')
