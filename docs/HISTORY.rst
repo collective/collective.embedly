@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.3 - Jan 29, 2014
+------------------
+
+- Add control panel to manage settings
+  [laulaz]
+
 2.2 - Aug 29, 2013
 ------------------
 
