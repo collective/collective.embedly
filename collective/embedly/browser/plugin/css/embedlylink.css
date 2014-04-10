@@ -16,3 +16,11 @@
     width: 49%;
     float: left;
 }
+
+div.mceActionPanel {
+    clear:both;
+}
+
+#advanced_panel form .field:nth-child(2n+3) {
+    clear: both;
+}

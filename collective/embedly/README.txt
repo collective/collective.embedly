@@ -9,11 +9,11 @@ The approach here is to use the Transform machinery to replace the URL with
 embed code by calling the embed.ly API.
 
 There are more than 200 services that support embed.ly service. These are such
-video sharing sites as Youtube, Blip.tv, Vimeo; such audio streaming services 
-as Grooveshark, SoundCloud, last.fm; such image/photo stocks as Flickr, and 
+video sharing sites as Youtube, Blip.tv, Vimeo; such audio streaming services
+as Grooveshark, SoundCloud, last.fm; such image/photo stocks as Flickr, and
 many other: GoogleMaps, Facebook, Twitter, etc.
 
-This product was developed by http://quintagroup.com for Plone collective, 
+This product was developed by http://quintagroup.com for Plone collective,
 sponsored by Headnet ApS http://headnet.dk.
 
 Usage
@@ -21,17 +21,17 @@ Usage
 
 To embed media from the embedly-supported external resource to Plone:
 
-* Go to the object's edit form, select some text and click  
+* Go to the object's edit form, select some text and click
   'Insert/Edit Embedly link' button.
 
 * In the panel add link and configure extra parameters in 'Advanced' tab.
   Check http://embed.ly/docs/arguments for params description.
 
-* The text should now look like linked. TinyMCE makes the whole passage linked, 
-  so keep in mind that the whole passage will later be substituted with 
+* The text should now look like linked. TinyMCE makes the whole passage linked,
+  so keep in mind that the whole passage will later be substituted with
   embedded media.
-  
-* Save this page. Now when rendered, there will be "preview" from embed.ly 
+
+* Save this page. Now when rendered, there will be "preview" from embed.ly
   service inserted instead of the linked text.
 
 More about usage at http://projects.quintagroup.com/products/wiki/collective.embedly
@@ -70,3 +70,4 @@ Contributors
 * Serhiy Valchuk
 * Clayton Parker
 * Laurent Lasudry
+* Harald Friessnegger

@@ -1,6 +1,7 @@
 Changelog
 =========
 
+
 unreleased
 ----------
 
@@ -9,6 +10,11 @@ unreleased
 
 - add url of document that caused embedly error in the error log
   (this fixes #12) [fRiSi]
+
+- Add rel=0 setting to not show related videos in
+  youtube embeds.
+  [fRiSi]
+
 
 2.3 - Jan 29, 2014
 ------------------
