@@ -1,4 +1,5 @@
 *.py?
+*.mo
 *.pyc
 .DS_Store
 *~
