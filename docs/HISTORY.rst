@@ -1,6 +1,12 @@
 Changelog
 =========
 
+unreleased
+----------
+
+- Internationalization added
+  [lepri]
+
 2.3 - Jan 29, 2014
 ------------------
 

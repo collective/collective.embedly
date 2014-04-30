@@ -1,0 +1,227 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 2.3\n"
+"POT-Creation-Date: 2014-04-30 13:04+0000\n"
+"PO-Revision-Date: 2014-04-30 10:38-0300\n"
+"Last-Translator: Gustavo Lepri <gustavolepri@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language-Code: pt-br\n"
+"Language-Name: Brazilian Portuguese\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: collective.embedly\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#: collective/embedly/interfaces.py:12
+msgid "API Key"
+msgstr "API Key"
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:23
+msgid "Advanced"
+msgstr "Avançado"
+
+#: collective/embedly/interfaces.py:40
+msgid "Cache timeout"
+msgstr "Tempo limite do cache"
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:146
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:114
+msgid ""
+"Either true Embedly will use the video_src meta or Open Graph tag to create "
+"a video object to embed."
+msgstr ""
+"Caso verdadeiro, o Embedly irá usar o meta video_src ou a tag Open Graph "
+"para criar um objeto video para embutir."
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:6
+#: collective/embedly/profiles/default/controlpanel.xml
+msgid "Embedly"
+msgstr "Embedly"
+
+#: collective/embedly/browser/controlpanel.py:65
+msgid "Embedly settings"
+msgstr "Configurações do Embedly"
+
+#: collective/embedly/interfaces.py:13
+msgid ""
+"Enter the API key given to you by Embedly. It can be found by logging into "
+"Embedly and going to your dashboard."
+msgstr ""
+"Insira a chave da API fornecida pelo Embedly. Ela pode ser encontrada "
+"entrando em Embedly e indo para seu painel."
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:18
+msgid "General"
+msgstr "Geral"
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:93
+msgid ""
+"In some cases, you may need the script tag for saving and displaying later. "
+"In order for Embedly to send the script embeds over jsonp add allowscripts."
+msgstr ""
+"Em alguns casos, você pode precisar da tag script para salvar e exibir mais "
+"tarde. A fim de que o Embedly possa enviar o script integrado sobre jsonp, "
+"adicionar allowscripts."
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:145
+msgid "Insert"
+msgstr "Inserir"
+
+#: collective/embedly/browser/controlpanel.py:66
+msgid "Lets you change the settings of collective.embedly"
+msgstr "Permite a alteração das configurações do collective.embedly"
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:32
+msgid "Link URL"
+msgstr "URL do Link"
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:35
+msgid "Preview"
+msgstr "Visualização"
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:74
+msgid "The callback is the name of the javascript function to execute."
+msgstr "O callback é o nome da função javascript a ser executada."
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:121
+msgid ""
+"The words parameter has a default value of 50 and works by trying to split "
+"the description at the closest sentence to that word count."
+msgstr ""
+"O parâmetro palavras tem um valor padrão de 50 e trabalha tentando dividir a "
+"descrição a uma sentença mais próxima à contagem de palavras."
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:100
+msgid ""
+"These all have style elements and inline styles associated with them that "
+"make the embeds look good. If you wish to style these embeds yourself, you "
+"can add nostyle and Embedly will remove the style elements."
+msgstr ""
+"Todos esses tem elementos de estilo e estilos inline associados a eles que "
+"fazem com que as incorporações (embeds) tenham boa aparência. Se você deseja "
+"estilizar estas incorporações (embeds), você pode addionar nostyle e o "
+"Embedly irá remover todos os elementos de estilo."
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:60
+msgid "This is the maximum height of the embed in pixels."
+msgstr "Este é o valor da altura máxima em pixels."
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:53
+msgid "This is the maximum width of the embed in pixels."
+msgstr "Este é o valor da largura máxima em pixels."
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:107
+msgid ""
+"This will tell the video/rich media to automatically play when the media is "
+"loaded."
+msgstr ""
+"Isto diz ao video/conteúdo de mídia para iniciar a reprodução "
+"automaticamente quando a mídia for carregada."
+
+#: collective/embedly/interfaces.py:41
+msgid "Time is seconds to invalidate cache."
+msgstr "Segundos para invalidar o cache."
+
+#: collective/embedly/interfaces.py:22
+msgid "Use Embedly Services API for checking url before getting oembed result."
+msgstr ""
+"Utilizar a API de Serviços do Embedly para verificar a url antes de obter o "
+"resultado oembed."
+
+#: collective/embedly/interfaces.py:31
+msgid "Use persistent cache"
+msgstr "Utilizar cache persistente"
+
+#: collective/embedly/interfaces.py:32
+msgid "Use persistent cache for Embedly Services API call's responses."
+msgstr ""
+"Utilizar cache persistente para as respostas de chamadas à API de Serviços "
+"do Embedly."
+
+#: collective/embedly/interfaces.py:21
+msgid "Use services regexp"
+msgstr "Usar serviços regexp"
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:81
+msgid "Will append the wmode value to the flash object."
+msgstr "Irá adicionar o valor wmode ao objeto flash."
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:67
+msgid ""
+"Will scale embeds type rich and video to the exact width that a developer "
+"specifies in pixels."
+msgstr ""
+"Irá escalar o conteúdo de mídia/video para o tamanho exato da largura, em "
+"pixels, especificado pelo desenvolvedor."
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:92
+msgid "allowscripts"
+msgstr "allowscripts"
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:106
+msgid "autoplay"
+msgstr "autoplay"
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:73
+msgid "callback"
+msgstr "callback"
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:129
+msgid "chars"
+msgstr "caracteres"
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:130
+msgid ""
+"chars is much simpler than words. Embedly will blindly truncate a "
+"description to the number of characters you specify adding ... at the end "
+"when needed."
+msgstr ""
+"caracteres é muito mais simples do que palavras. O Embedly irá, cegamente, "
+"truncar uma descrição para o número de caracteres que você especificar "
+"adicionando ... ao final quando necessário."
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:59
+msgid "maxheight"
+msgstr "maxheight"
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:52
+msgid "maxwidth"
+msgstr "maxwidth"
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:99
+msgid "nostyle"
+msgstr "nostyle"
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:86
+msgid "opaque"
+msgstr "opaque"
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:87
+msgid "transparent"
+msgstr "transparent"
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:113
+msgid "videosrc"
+msgstr "videosrc"
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:66
+msgid "width"
+msgstr "largura"
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:85
+msgid "window"
+msgstr "janela"
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:80
+msgid "wmode"
+msgstr "wmode"
+
+#: collective/embedly/browser/plugin/embedly.htm.pt:120
+msgid "words"
+msgstr "palavras"

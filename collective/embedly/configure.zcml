@@ -79,6 +79,7 @@
       factory=".setuphandlers.HiddenProfiles"
       name="collective.embedly"
       provides="Products.CMFPlone.interfaces.INonInstallable" />
-  <!-- -*- extra stuff goes here -*- -->
-  
+
+  <i18n:registerTranslations directory="locales" />
+
 </configure>
