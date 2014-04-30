@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="collective.embedly" >
+<head>
+  <title i18n:translate="">Embedly</title>
+  <script type="text/javascript" src="../tiny_mce_popup.js"></script>
+  <script type="text/javascript" src="../utils/mctabs.js"></script>
+  <script type="text/javascript" src="../utils/form_utils.js"></script>
+  <script type="text/javascript" src="js/embedlylink.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/embedlylink.css" />
+</head>
+<body id="plonelink" class="icons-on">
+  <div class="dialog-wrapper" id="content">
+    <ul class="formTabs">
+      <li id="general_tab" class="formTab firstFormTab">
+        <a href="javascript:displayTab('general_tab','general_panel');" onmousedown="return false;" class="selected">
+          <span i18n:translate="">General</span>
+        </a>
+      </li>
+      <li id="advanced_tab" class="formTab lastFormTab">
+        <a href="javascript:displayTab('advanced_tab','advanced_panel');" onmousedown="return false;">
+          <span i18n:translate="">Advanced</span>
+        </a>
+      </li>
+    </ul>
+
+    <div id="general_panel" class="formPanel current">
+      <form>
+        <input type="hidden" name="href" id="href"/>
+        <div class="field">
+          <label for="externalurl" i18n:translate="">Link URL</label>
+          <div class="widget">
+            <input type="text" name="externalurl" id="externalurl" value="" size="30"/>
+            <input type="button" id="preview" class="context" name="preview" value="Preview" i18n:attributes="value" onclick="previewExternalLink();" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="preview" i18n:translate="">Preview</label>
+          <div class="widget">
+            <div class="input-border" name="previewexternal" id="previewexternal"></div>
+          </div>
+        </div>
+      </form>
+
+    </div>
+
+    <div id="advanced_panel" class="formPanel panel">
+      <form>
+        <div class="field">
+          <label for="maxwidth" i18n:translate="">maxwidth</label>
+              <span class="formHelp" i18n:translate="">This is the maximum width of the embed in pixels.</span>
+          <div class="widget">
+            <input type="text" name="maxwidth" id="maxwidth" value="" size="10" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="maxheight" i18n:translate="">maxheight</label>
+            <span class="formHelp" i18n:translate="">This is the maximum height of the embed in pixels.</span>
+          <div class="widget">
+            <input type="text" name="maxheight" id="maxheight" value="" size="10" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="width" i18n:translate="">width</label>
+            <span class="formHelp" i18n:translate="">Will scale embeds type rich and video to the exact width that a developer specifies in pixels.</span>
+          <div class="widget">
+            <input type="text" name="width" id="width" value="" size="10" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="callback" i18n:translate="">callback</label>
+            <span class="formHelp" i18n:translate="">The callback is the name of the javascript function to execute.</span>
+          <div class="widget">
+            <input type="text" name="callback" id="callback" value="" size="30" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="wmode" i18n:translate="">wmode</label>
+            <span class="formHelp" i18n:translate="">Will append the wmode value to the flash object.</span>
+          <div class="widget">
+            <select id="wmode" name="wmode">
+              <option value=""></option>
+              <option value="window" i18n:translate="">window</option>
+              <option value="opaque" i18n:translate="">opaque</option>
+              <option value="transparent" i18n:translate="">transparent</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="allowscripts" i18n:translate="">allowscripts</label>
+            <span class="formHelp" i18n:translate="">In some cases, you may need the script tag for saving and displaying later. In order for Embedly to send the script embeds over jsonp add allowscripts.</span>
+          <div class="widget">
+            <input type="checkbox" name="allowscripts" id="allowscripts" value="" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="nostyle" i18n:translate="">nostyle</label>
+            <span class="formHelp" i18n:translate="">These all have style elements and inline styles associated with them that make the embeds look good. If you wish to style these embeds yourself, you can add nostyle and Embedly will remove the style elements.</span>
+          <div class="widget">
+            <input type="checkbox" name="nostyle" id="nostyle" value="" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="autoplay" i18n:translate="">autoplay</label>
+            <span class="formHelp" i18n:translate="">This will tell the video/rich media to automatically play when the media is loaded.</span>
+          <div class="widget">
+            <input type="checkbox" name="autoplay" id="autoplay" value="" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="videosrc" i18n:translate="">videosrc</label>
+            <span class="formHelp" i18n:translate="">Either true Embedly will use the video_src meta or Open Graph tag to create a video object to embed.</span>
+          <div class="widget">
+            <input type="checkbox" name="videosrc" id="videosrc" value="" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="words" i18n:translate="">words</label>
+            <span class="formHelp" i18n:translate="">
+The words parameter has a default value of 50 and works by trying to split the description at the closest sentence to that word count.
+</span>
+          <div class="widget">
+            <input type="text" name="words" id="words" value="" size="10" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="chars" i18n:translate="">chars</label>
+            <span class="formHelp" i18n:translate="">
+    chars is much simpler than words. Embedly will blindly truncate a description to the number of characters you specify adding ... at the end when needed.
+</span>
+          <div class="widget">
+            <input type="text" name="chars" id="chars" value="" size="10" />
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="visualClear"><!-- --></div>
+
+    <form onsubmit="insertAction();return false;" action="#">
+      <div class="mceActionPanel formControls">
+        <span class="actionButtons">
+          <input type="submit" id="insert" class="context" name="insert" value="Insert" i18n:attributes="value" />
+          <input type="button" id="cancel" class="standalone" name="cancel" value="Cancel" i18n:attributes="value" onclick="tinyMCEPopup.close();" />
+        </span>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
