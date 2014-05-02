@@ -1,6 +1,4 @@
 #! /bin/sh
-# to sync the embedly.html it's necessary rename it to embedly.html.pt
-# and after the sync rename it again for the correct name
 
 I18NDOMAIN="collective.embedly"
 BASE_DIRECTORY="collective/embedly"
