@@ -165,14 +165,14 @@ def match(url):
 def replace(matchobj):
     url = matchobj.groupdict().get('url', None)
 
-    #Not Something Embedly Handles
+    # Not Something Embedly Handles
     if get_embedly_settings('use_services_regexp') and not match(url):
         return matchobj.group()
 
     # We pass in the url AND the api_key so that if we change the
     # key, it will fetch against the new key.
     oembed = get_oembed(url, get_embedly_settings('api_key'))
-    #embed was not found or it's a link type
+    # embed was not found or it's a link type
     if oembed is None or oembed['type'] == 'link':
         return matchobj.group()
     elif oembed['type'] in ['video', 'rich']:
@@ -180,7 +180,7 @@ def replace(matchobj):
     elif oembed['type'] == 'photo':
         return u'<div class="embed"><a href="%s" title="%s"><img src="%s"></img></a></div>' % (url, oembed.get('title', ''), oembed['url'])
 
-    #bad type?
+    # bad type?
     return matchobj.group()
 
 

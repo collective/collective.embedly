@@ -1,7 +1,6 @@
 from zope.interface import implements
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import INonInstallable
-import collective.embedly.transform
 from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
 from collective.embedly.interfaces import IEmbedlySettings

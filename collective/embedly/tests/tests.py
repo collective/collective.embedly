@@ -37,7 +37,7 @@ class TestSetup(unittest.TestCase):
         portal = self.layer['portal']
         storage = IAnnotations(portal)
         self.assertEqual(storage.get('collective.embedly.services'), None)
-        #update_services()
+        # update_services()
         view = portal.unrestrictedTraverse("@@update_embedly_services")
         view.__of__(portal)()
 
