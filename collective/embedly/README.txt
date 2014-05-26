@@ -48,9 +48,14 @@ Note
    o http://api.embed.ly/1/oembed?url=http://www.youtube.com/watch?v=L1NPLlhFTVk
    o http://api.embed.ly/1/oembed?url=http://www.youtube.com/watch?v=L1NPLlhFTVk&fromat=xml format result as xml
 
-* You can set the API key by going to Site Setup -> Configuration Registry and
-  setting the api_key value. The default is to not pass along a key, your
-  requests to embedly will be anonymous and based solely on IP address.
+* You can set parameters by going to the Plone control panel / Embedly settings:
+
+   o cache usage and timeout
+   o service URL verification
+   o API key
+
+* The default is to not pass along an API key, your requests to embedly will be
+  anonymous and based solely on IP address.
 
 Supported Plone Version
 -----------------------
@@ -64,3 +69,4 @@ Contributors
 * Roman Kozlovskyi
 * Serhiy Valchuk
 * Clayton Parker
+* Laurent Lasudry
