@@ -79,14 +79,14 @@ class EmbedlyPersistent(object):
             del annotations[self.propname]
 
     def memoize(self, func):
-        def memogetter(url, api_key):
+        def memogetter(url, api_key, doc):
             annotations = IAnnotations(getSite())
             cache = annotations.get(self.propname, _marker)
             if cache is _marker:
                 annotations[self.propname] = dict()
                 cache = annotations.get(self.propname)
 
-            key = get_oembed_cache_key(func.__name__, url, api_key)
+            key = get_oembed_cache_key(func.__name__, url, api_key, doc)
             val = cache.get(key, _marker)
             if val is _marker:
                 val = func(url, api_key)
@@ -100,7 +100,7 @@ class EmbedlyPersistent(object):
 _m = EmbedlyPersistent()
 
 
-def get_oembed_cache_key(method, url, api_key):
+def get_oembed_cache_key(method, url, api_key, doc=None):
     timeout = get_embedly_settings('cache_timeout')
     return (
         time() // timeout if timeout else timeout,
@@ -110,10 +110,10 @@ def get_oembed_cache_key(method, url, api_key):
 
 
 def get_oembed_cache(f):
-    def func(url, api_key=None):
+    def func(url, api_key=None, doc=None):
         if get_embedly_settings('persistent_cache'):
-            return _m.memoize(f)(url, api_key)
-        return ram.cache(get_oembed_cache_key)(f)(url, api_key)
+            return _m.memoize(f)(url, api_key, doc)
+        return ram.cache(get_oembed_cache_key)(f)(url, api_key, doc)
     return func
 
 
@@ -127,7 +127,7 @@ def get_embedly_settings(name):
 
 
 @get_oembed_cache
-def get_oembed(url, api_key=None):
+def get_oembed(url, api_key=None, doc=None):
     url = url.replace('&amp;', '&')
     parts = urlparse(url)
     pms = parse_qsl(parts.query)
@@ -149,7 +149,10 @@ def get_oembed(url, api_key=None):
         result = urllib2.urlopen(fetch_url).read()
         logger.debug("Response: %s" % result)
     except urllib2.HTTPError, e:
-        logger.error("Unexpected response from embedly API (%d: %s) while processing %s" % (e.code, e.msg, url))
+        if doc:
+            logger.error("Unexpected response from embedly API (%d: %s) while processing %s in %s" % (e.code, e.msg, url, doc))
+        else:
+            logger.error("Unexpected response from embedly API (%d: %s) while processing %s" % (e.code, e.msg, url))
         logger.debug("Response: %s" % e.read())
         return None
     return json.loads(result)
@@ -162,32 +165,31 @@ def match(url):
         return False
 
 
-def replace(matchobj):
-    url = matchobj.groupdict().get('url', None)
-
-    # Not Something Embedly Handles
-    if get_embedly_settings('use_services_regexp') and not match(url):
-        return matchobj.group()
-
-    # We pass in the url AND the api_key so that if we change the
-    # key, it will fetch against the new key.
-    oembed = get_oembed(url, get_embedly_settings('api_key'))
-    # embed was not found or it's a link type
-    if oembed is None or oembed['type'] == 'link':
-        return matchobj.group()
-    elif oembed['type'] in ['video', 'rich']:
-        return u'<div class="embed">%s</div>' % oembed['html']
-    elif oembed['type'] == 'photo':
-        return u'<div class="embed"><a href="%s" title="%s"><img src="%s"></img></a></div>' % (url, oembed.get('title', ''), oembed['url'])
-
-    # bad type?
-    return matchobj.group()
-
-
-def parse(text):
+def parse(text, doc=None):
     """
     Parse a piece of text for bbcodes and insert the correct embed code
     """
+    def replace(matchobj):
+        url = matchobj.groupdict().get('url', None)
+
+        # Not Something Embedly Handles
+        if get_embedly_settings('use_services_regexp') and not match(url):
+            return matchobj.group()
+
+        # We pass in the url AND the api_key so that if we change the
+        # key, it will fetch against the new key.
+        oembed = get_oembed(url, api_key=get_embedly_settings('api_key'), doc=doc)
+        # embed was not found or it's a link type
+        if oembed is None or oembed['type'] == 'link':
+            return matchobj.group()
+        elif oembed['type'] in ['video', 'rich']:
+            return u'<div class="embed">%s</div>' % oembed['html']
+        elif oembed['type'] == 'photo':
+            return u'<div class="embed"><a href="%s" title="%s"><img src="%s"></img></a></div>' % (url, oembed.get('title', ''), oembed['url'])
+
+        # bad type?
+        return matchobj.group()
+
     return link_url_re.sub(replace, text)
 
 
@@ -232,7 +234,7 @@ class EmbedlyTransform:
             putils = getToolByName(context, 'plone_utils')
             encoding = putils.getSiteEncoding()
             data = data.decode(encoding)
-            text = parse(data)
+            text = parse(data, context.absolute_url())
             text = text.encode(encoding)
         else:
             text = parse(data)
