@@ -7,6 +7,9 @@ unreleased
 - Internationalization added
   [lepri]
 
+- add url of document that caused embedly error in the error log
+  (this fixes #12) [fRiSi]
+
 2.3 - Jan 29, 2014
 ------------------
 
