@@ -85,6 +85,7 @@ Log in
     Input text  __ac_name  ${userid}
     Input text  __ac_password  ${password}
     Click Button  Log in
+    Wait Until Page Contains  You are now logged in
 
 Log in as site owner
     Log in  ${SITE_OWNER_NAME}  ${SITE_OWNER_PASSWORD}
