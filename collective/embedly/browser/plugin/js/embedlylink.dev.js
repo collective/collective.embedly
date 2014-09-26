@@ -31,8 +31,48 @@ function displayTab(tab_id, panel_id) {
         }
         // Show selected panel
         panelElm.className = 'current';
+        toggleYoutubeFields(panelElm);
     }
+
 };
+
+/**
+ * hides all fields marked with youtube class
+ * in case the url given is not youtube specific
+ * (youtube.com or youtu.be)
+ *
+ * @param {Object} panel
+ */
+function toggleYoutubeFields(panel){
+    if (panel.id != 'advanced_panel') {
+        return;
+    }
+    var url = document.getElementById('externalurl').value;
+    var show = false;
+    if (url.contains('://youtu')) {
+        show = true;
+    }
+
+    function addClass(el, newClassName){
+        el.className += ' ' + newClassName;
+    }
+    function removeClass(el, removeClassName){
+        var elClass = el.className;
+        while(elClass.indexOf(removeClassName) != -1) {
+            elClass = elClass.replace(removeClassName, '');
+            elClass = elClass.trim();
+        }
+        el.className = elClass;
+    }
+
+    var nodes = panel.getElementsByTagName("form")[0].getElementsByTagName('div');
+    for (i=0; i< nodes.length; i++) {
+        var node = nodes[i];
+        if (node.className.contains('youtube')) {
+            show ? removeClass(node, 'hidden'): addClass(node, 'hidden');
+        }
+    }
+}
 
 var templates = {
     "window.open" : "window.open('${url}','${target}','${options}')"
@@ -48,6 +88,7 @@ var checked_getter = ['allowscripts', 'nostyle', 'autoplay', 'videosrc'];
 var unchecked_getter = ['youtube_rel'];
 
 function preinit() {
+    console.log("preinit");
     var url = tinyMCEPopup.getParam("external_link_list_url");
 
     if (url)
@@ -80,7 +121,7 @@ function initData(href) {
                 document.getElementById(unchecked_getter[i]).checked = val;
                 eparams.push(unchecked_getter[i]);
             }
-        }        
+        }
         for (i in params) {
             if (eparams.indexOf(i)===-1) {
                 newparams.push(i+"="+params[i]);
@@ -111,7 +152,7 @@ function init() {
         action = "update";
 
     // Set button caption
-    formButtonsObj.insert.value = 'Insert'; 
+    formButtonsObj.insert.value = 'Insert';
 
     // Check if rooted
     if (tinyMCEPopup.editor.settings.rooted) {
@@ -146,13 +187,13 @@ function getAbsoluteUrl(base, link) {
     if ((link.indexOf('http://') != -1) || (link.indexOf('https://') != -1) || (link.indexOf('ftp://') != -1)) {
         return link;
     }
-    
+
     var base_array = base.split('/');
     var link_array = link.split('/');
-    
+
     // Remove document from base url
     base_array.pop();
-    
+
     while (link_array.length !== 0) {
         var item = link_array.shift();
         if (item == ".") {
@@ -202,7 +243,7 @@ function previewExternalLink() {
     request.onreadystatechange = function () {
         if ( request.readyState == request.DONE ) {
             if ( request.status == 200 ) {
-                var resp = eval( "(" + request.responseText + ")" ); 
+                var resp = eval( "(" + request.responseText + ")" );
                 if(resp.type == 'error'){
                     preview.innerHTML="<p class='error'>We couldn't process this URL. Try again, or email support@embed.ly.</p>";
                 } else {
@@ -222,11 +263,11 @@ function previewExternalLink() {
                     pr = '<div class="embedly">'+code + '</div>';
                     preview.innerHTML = pr;
                 }
-            } else { 
+            } else {
             preview.innerHTML="<p class='error'>We couldn't process this URL. Try again, or email support@embed.ly.</p>";
-            } 
-            request = null; 
-        } 
+            }
+            request = null;
+        }
     };
     request.send();
 }
@@ -248,11 +289,11 @@ function buildHref() {
         value = document.getElementById(checked_getter[i]).checked;
         if (value) params[checked_getter[i]] = 'true';
     }
-    
+
     for (i in unchecked_getter) {
         value = document.getElementById(unchecked_getter[i]).checked;
         if (value) params[unchecked_getter[i]] = 'false';
-    }    
+    }
     for (i in params) {
         if (href.indexOf("?") === -1) {
             href+="?";

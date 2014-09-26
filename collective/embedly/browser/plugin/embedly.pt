@@ -7,7 +7,7 @@
   <script type="text/javascript" src="../tiny_mce_popup.js"></script>
   <script type="text/javascript" src="../utils/mctabs.js"></script>
   <script type="text/javascript" src="../utils/form_utils.js"></script>
-  <script type="text/javascript" src="js/embedlylink.js"></script>
+  <script type="text/javascript" src="js/embedlylink.dev.js"></script>
   <link rel="stylesheet" type="text/css" href="css/embedlylink.css" />
 </head>
 <body id="plonelink" class="icons-on">
@@ -109,7 +109,7 @@
             <input type="checkbox" name="autoplay" id="autoplay" value="" />
           </div>
         </div>
-        <div class="field">
+        <div class="field youtube">
           <label for="youtube_rel" i18n:translate="">Hide Related</label>
             <span class="formHelp" i18n:translate="">This will tell Embedly to not show related videos when the youtube video ended.</span>
           <div class="widget">

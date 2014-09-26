@@ -24,3 +24,7 @@ div.mceActionPanel {
 #advanced_panel form .field:nth-child(2n+3) {
     clear: both;
 }
+
+.field.hidden {
+    display: none;
+}
