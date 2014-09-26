@@ -88,7 +88,6 @@ var checked_getter = ['allowscripts', 'nostyle', 'autoplay', 'videosrc'];
 var unchecked_getter = ['youtube_rel'];
 
 function preinit() {
-    console.log("preinit");
     var url = tinyMCEPopup.getParam("external_link_list_url");
 
     if (url)
