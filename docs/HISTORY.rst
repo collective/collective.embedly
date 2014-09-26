@@ -14,6 +14,7 @@ unreleased
   youtube embeds.
   [fRiSi]
 
+- Add German translations. [fRiSi]
 
 2.3 - Jan 29, 2014
 ------------------
