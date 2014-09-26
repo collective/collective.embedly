@@ -150,8 +150,6 @@ function init() {
     if (elm !== null && elm.nodeName == "A")
         action = "update";
 
-    // Set button caption
-    formButtonsObj.insert.value = 'Insert';
 
     // Check if rooted
     if (tinyMCEPopup.editor.settings.rooted) {
