@@ -49,7 +49,7 @@ function toggleYoutubeFields(panel){
     }
     var url = document.getElementById('externalurl').value;
     var show = false;
-    if (url.contains('://youtu')) {
+    if (url.contains('://youtu') || url.contains('://www.youtu')) {
         show = true;
     }
 
