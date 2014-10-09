@@ -134,7 +134,8 @@ def get_oembed(url, api_key=None, doc=None):
     # bbb to translate rel=0 to youtube_rel for oembed
     # https://developers.google.com/youtube/player_parameters#rel
     if '://youtu' in url:
-        url = url.replace('rel=', 'youtube_rel=')
+        # only replace rel, not youtube_rel
+        url = re.sub(r'(.*[&|?])(rel=)(.*)', r'\1youtube_rel=\3', url)
 
     parts = urlparse(url)
     pms = parse_qsl(parts.query)
