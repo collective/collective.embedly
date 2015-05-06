@@ -31,8 +31,48 @@ function displayTab(tab_id, panel_id) {
         }
         // Show selected panel
         panelElm.className = 'current';
+        toggleYoutubeFields(panelElm);
     }
+
 };
+
+/**
+ * hides all fields marked with youtube class
+ * in case the url given is not youtube specific
+ * (youtube.com or youtu.be)
+ *
+ * @param {Object} panel
+ */
+function toggleYoutubeFields(panel){
+    if (panel.id != 'advanced_panel') {
+        return;
+    }
+    var url = document.getElementById('externalurl').value;
+    var show = false;
+    if (url.contains('://youtu') || url.contains('://www.youtu')) {
+        show = true;
+    }
+
+    function addClass(el, newClassName){
+        el.className += ' ' + newClassName;
+    }
+    function removeClass(el, removeClassName){
+        var elClass = el.className;
+        while(elClass.indexOf(removeClassName) != -1) {
+            elClass = elClass.replace(removeClassName, '');
+            elClass = elClass.trim();
+        }
+        el.className = elClass;
+    }
+
+    var nodes = panel.getElementsByTagName("form")[0].getElementsByTagName('div');
+    for (i=0; i< nodes.length; i++) {
+        var node = nodes[i];
+        if (node.className.contains('youtube')) {
+            show ? removeClass(node, 'hidden'): addClass(node, 'hidden');
+        }
+    }
+}
 
 var templates = {
     "window.open" : "window.open('${url}','${target}','${options}')"
@@ -44,7 +84,8 @@ var current_url = "";
 var current_pageanchor = "";
 var labels = "";
 var value_getter = ['maxwidth', 'maxheight', 'width', 'callback', 'wmode', 'words', 'chars'];
-var cheched_getter = ['allowscripts', 'nostyle', 'autoplay', 'videosrc'];
+var checked_getter = ['allowscripts', 'nostyle', 'autoplay', 'videosrc'];
+var unchecked_getter = ['youtube_rel'];
 
 function preinit() {
     var url = tinyMCEPopup.getParam("external_link_list_url");
@@ -67,10 +108,17 @@ function initData(href) {
                 eparams.push(value_getter[i]);
             }
         }
-        for (i in cheched_getter) {
-            if (cheched_getter[i] in params) {
-                document.getElementById(cheched_getter[i]).checked = true;
-                eparams.push(cheched_getter[i]);
+        for (i in checked_getter) {
+            if (checked_getter[i] in params) {
+                document.getElementById(checked_getter[i]).checked = true;
+                eparams.push(checked_getter[i]);
+            }
+        }
+        for (i in unchecked_getter) {
+            if (unchecked_getter[i] in params) {
+                var val =  params[unchecked_getter[i]];
+                document.getElementById(unchecked_getter[i]).checked = val;
+                eparams.push(unchecked_getter[i]);
             }
         }
         for (i in params) {
@@ -103,7 +151,7 @@ function init() {
         action = "update";
 
     // Set button caption
-    formButtonsObj.insert.value = 'Insert'; 
+    formButtonsObj.insert.value = 'Insert';
 
     // Check if rooted
     if (tinyMCEPopup.editor.settings.rooted) {
@@ -138,13 +186,13 @@ function getAbsoluteUrl(base, link) {
     if ((link.indexOf('http://') != -1) || (link.indexOf('https://') != -1) || (link.indexOf('ftp://') != -1)) {
         return link;
     }
-    
+
     var base_array = base.split('/');
     var link_array = link.split('/');
-    
+
     // Remove document from base url
     base_array.pop();
-    
+
     while (link_array.length !== 0) {
         var item = link_array.shift();
         if (item == ".") {
@@ -194,7 +242,7 @@ function previewExternalLink() {
     request.onreadystatechange = function () {
         if ( request.readyState == request.DONE ) {
             if ( request.status == 200 ) {
-                var resp = eval( "(" + request.responseText + ")" ); 
+                var resp = eval( "(" + request.responseText + ")" );
                 if(resp.type == 'error'){
                     preview.innerHTML="<p class='error'>We couldn't process this URL. Try again, or email support@embed.ly.</p>";
                 } else {
@@ -214,11 +262,11 @@ function previewExternalLink() {
                     pr = '<div class="embedly">'+code + '</div>';
                     preview.innerHTML = pr;
                 }
-            } else { 
+            } else {
             preview.innerHTML="<p class='error'>We couldn't process this URL. Try again, or email support@embed.ly.</p>";
-            } 
-            request = null; 
-        } 
+            }
+            request = null;
+        }
     };
     request.send();
 }
@@ -236,9 +284,14 @@ function buildHref() {
         value = document.getElementById(value_getter[i]).value;
         if (value !== '') params[value_getter[i]] = value;
     }
-    for (i in cheched_getter) {
-        value = document.getElementById(cheched_getter[i]).checked;
-        if (value) params[cheched_getter[i]] = 'true';
+    for (i in checked_getter) {
+        value = document.getElementById(checked_getter[i]).checked;
+        if (value) params[checked_getter[i]] = 'true';
+    }
+
+    for (i in unchecked_getter) {
+        value = document.getElementById(unchecked_getter[i]).checked;
+        if (value) params[unchecked_getter[i]] = 'false';
     }
     for (i in params) {
         if (href.indexOf("?") === -1) {
@@ -324,3 +377,4 @@ function getSelectValue(form_obj, field_name) {
 // While loading
 preinit();
 tinyMCEPopup.onInit.add(init);
+
