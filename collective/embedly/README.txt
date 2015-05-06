@@ -54,6 +54,9 @@ Note
    o service URL verification
    o API key
 
+* You can update the regular expression for supported services by calling
+  http://yourhost/plonesite/@@update_embedly_services
+
 * The default is to not pass along an API key, your requests to embedly will be
   anonymous and based solely on IP address.
 
