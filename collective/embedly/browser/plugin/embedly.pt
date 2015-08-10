@@ -7,8 +7,8 @@
   <script type="text/javascript" src="../tiny_mce_popup.js"></script>
   <script type="text/javascript" src="../utils/mctabs.js"></script>
   <script type="text/javascript" src="../utils/form_utils.js"></script>
-  <script type="text/javascript" src="js/embedlylink.js"></script>
-  <link rel="stylesheet" type="text/css" href="css/embedlylink.css" />
+  <script type="text/javascript" src="../++resource++collective.embedly.plugin/js/embedlylink.dev.js"></script>
+  <link rel="stylesheet" type="text/css" href="../++resource++collective.embedly.plugin/css/embedlylink.css" />
 </head>
 <body id="plonelink" class="icons-on">
   <div class="dialog-wrapper" id="content">
@@ -28,6 +28,9 @@
     <div id="general_panel" class="formPanel current">
       <form>
         <input type="hidden" name="href" id="href"/>
+        <input type="hidden" name="apikey" id="apikey"
+            value="some-api-key"
+            tal:attributes="value view/api_key | nothing" />
         <div class="field">
           <label for="externalurl" i18n:translate="">Link URL</label>
           <div class="widget">

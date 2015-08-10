@@ -7,7 +7,7 @@
                 if (c.isCollapsed() && !a.dom.getParent(c.getNode(), "A"))
                     return;
                 a.windowManager.open({
-                    file: b + "/embedly.pt",
+                    file: b + "/../@@embedly-plugin.html",
                     width: 820 + parseInt(a.getLang("plonelink.delta_width", 0), 10),
                     height: 540 + parseInt(a.getLang("plonelink.delta_height", 0), 10),
                     inline: 1
