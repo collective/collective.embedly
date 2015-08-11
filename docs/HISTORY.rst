@@ -1,6 +1,12 @@
 Changelog
 =========
 
+dev
+---
+
+- Add embedly API key to requests in preview mode (this fixes #19)
+  [fRiSi]
+
 2.4 - May 6, 2015
 -----------------
 

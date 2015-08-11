@@ -230,6 +230,8 @@ function previewExternalLink() {
     elink = "http://api.embed.ly/1/oembed?format=json";
     params = {};
     params.url = escape(url);
+    var api_key = document.getElementById('apikey').value;
+    params.key = api_key;
     for(var i in params){
       if(params[i])
         elink += '&'+i+'='+params[i];

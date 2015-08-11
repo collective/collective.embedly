@@ -33,4 +33,12 @@
       directory="plugin"
       />
 
+  <browser:page
+      name="embedly-plugin.html"
+      for="*"
+      class=".EmbedlyPlugin"
+      template="plugin/embedly.pt"
+      permission="zope2.View"
+      />
+
 </configure>
