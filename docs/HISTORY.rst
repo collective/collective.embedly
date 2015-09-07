@@ -4,6 +4,9 @@ Changelog
 dev
 ---
 
+- Don't attempt to decode unicode strings in transform.
+  [alecm]
+
 - Add embedly API key to requests in preview mode (this fixes #19)
   [fRiSi]
 

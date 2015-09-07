@@ -3,6 +3,7 @@ import json
 import re
 import logging
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.utils import safe_unicode
 from Products.PortalTransforms.interfaces import ITransform
 from zope.interface import implements
 from zope.component import getUtility, queryUtility
@@ -241,7 +242,7 @@ class EmbedlyTransform:
         if context:
             putils = getToolByName(context, 'plone_utils')
             encoding = putils.getSiteEncoding()
-            data = data.decode(encoding)
+            data = safe_unicode(data, encoding)
             text = parse(data, context.absolute_url())
             text = text.encode(encoding)
         else:
