@@ -1,0 +1,239 @@
+# Zoriana Zaiats <sorenabell@quintagroup.com>, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: 2.3\n"
+"POT-Creation-Date: 2014-09-26 15:19+0000\n"
+"PO-Revision-Date: 2015-10-07 17:19+0300\n"
+"Last-Translator: Zoriana Zaiats <sorenabell@quintagroup.com>\n"
+"Language-Team: Ukrainian <support@quintagroup.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language-Code: uk\n"
+"Language-Name: Ukrainian\n"
+"Preferred-Encodings: utf-8 koi8-u windows-1251\n"
+"Domain: collective.embedly\n"
+"X-Generator: Lokalize 1.5\n"
+"Language: uk\n"
+
+#: collective/embedly/interfaces.py:12
+msgid "API Key"
+msgstr "Ключ API"
+
+#: collective/embedly/browser/plugin/embedly.pt:23
+msgid "Advanced"
+msgstr "Розширені налаштування"
+
+#: collective/embedly/interfaces.py:40
+msgid "Cache timeout"
+msgstr "Тайм-аут кешу"
+
+#: collective/embedly/browser/plugin/embedly.pt:151
+msgid "Cancel"
+msgstr "Скасувати"
+
+#: collective/embedly/browser/plugin/embedly.pt:121
+msgid ""
+"Either true Embedly will use the video_src meta or Open Graph tag to create a "
+"video object to embed."
+msgstr ""
+"Embedly використає або video_src meta, або Open Graph тег для створення відео "
+"об’єкта для вставки."
+
+#: collective/embedly/browser/plugin/embedly.pt:6
+#: collective/embedly/profiles/default/controlpanel.xml
+msgid "Embedly"
+msgstr "Embedly"
+
+#: collective/embedly/browser/controlpanel.py:65
+msgid "Embedly settings"
+msgstr "Налаштування Embedly"
+
+#: collective/embedly/interfaces.py:13
+msgid ""
+"Enter the API key given to you by Embedly. It can be found by logging into "
+"Embedly and going to your dashboard."
+msgstr ""
+"Введіть API ключ наданий вам сервісом Embedly. Його можна знайти, "
+"залогувавшись в Embedly та перейшовши на панель керування (Dashboard)."
+
+#: collective/embedly/browser/plugin/embedly.pt:18
+msgid "General"
+msgstr "Загальні налаштування"
+
+#: collective/embedly/browser/plugin/embedly.pt:113
+msgid "Hide Related"
+msgstr "Сховати пов’язані"
+
+#: collective/embedly/browser/plugin/embedly.pt:93
+msgid ""
+"In some cases, you may need the script tag for saving and displaying later. "
+"In order for Embedly to send the script embeds over jsonp add allowscripts."
+msgstr ""
+"У деяких випадках вам знадобиться скрипт тег для зберігання та відображення. "
+"Для того, щоб сервіс Embedly посилав вставки скрипта через jsonp, додайте "
+"allowscripts."
+
+#: collective/embedly/browser/plugin/embedly.pt:150
+msgid "Insert"
+msgstr "Вставити"
+
+#: collective/embedly/browser/controlpanel.py:66
+msgid "Lets you change the settings of collective.embedly"
+msgstr "Дозволяє змінити налаштування collective.embedly"
+
+#: collective/embedly/browser/plugin/embedly.pt:32
+msgid "Link URL"
+msgstr "URL-адреса посилання"
+
+#: collective/embedly/browser/plugin/embedly.pt:35
+msgid "Preview"
+msgstr "Попередній перегляд"
+
+#: collective/embedly/browser/plugin/embedly.pt:74
+msgid "The callback is the name of the javascript function to execute."
+msgstr ""
+"Зворотній виклик (callback) - це назва javascript функції для виконання."
+
+#: collective/embedly/browser/plugin/embedly.pt:128
+msgid ""
+"The words parameter has a default value of 50 and works by trying to split "
+"the description at the closest sentence to that word count."
+msgstr ""
+"Парамерт \"words\" має стандартне значення 50. Опис розділяється на реченні, "
+"найближчому до цієї кількості слів."
+
+#: collective/embedly/browser/plugin/embedly.pt:100
+msgid ""
+"These all have style elements and inline styles associated with them that "
+"make the embeds look good. If you wish to style these embeds yourself, you "
+"can add nostyle and Embedly will remove the style elements."
+msgstr ""
+"Відео має елементи стилю та вбудовані стилі, пов'язані з ним, які надають "
+"вставці гарного вигляду. Якщо ви хочете додати стилі власноруч, ви можете "
+"додати nostyle параметр і Embedly видалить всі елементи стилю."
+
+#: collective/embedly/browser/plugin/embedly.pt:60
+msgid "This is the maximum height of the embed in pixels."
+msgstr "Це максимальна висота вставки в пікселях."
+
+#: collective/embedly/browser/plugin/embedly.pt:53
+msgid "This is the maximum width of the embed in pixels."
+msgstr "Це максимальна ширина вставки в пікселях."
+
+#: collective/embedly/browser/plugin/embedly.pt:114
+msgid ""
+"This will tell Embedly to not show related videos when the youtube video "
+"ended."
+msgstr ""
+"Цей параметр дозволить не показувати пов’язані відео, коли youtube відео "
+"завершується."
+
+#: collective/embedly/browser/plugin/embedly.pt:107
+msgid ""
+"This will tell the video/rich media to automatically play when the media is "
+"loaded."
+msgstr ""
+"Цей параметр дозволить програвати відео/мультимедіа автоматично при "
+"завантаженні."
+
+#: collective/embedly/interfaces.py:41
+msgid "Time is seconds to invalidate cache."
+msgstr "Час в секундах, щоб анулювати кеш."
+
+#: collective/embedly/interfaces.py:22
+msgid "Use Embedly Services API for checking url before getting oembed result."
+msgstr ""
+"Використовуйте Embedly Services API для перевірки URL, перш ніж отримати "
+"вставлений результат."
+
+#: collective/embedly/interfaces.py:31
+msgid "Use persistent cache"
+msgstr "Використовувати постійний кеш"
+
+#: collective/embedly/interfaces.py:32
+msgid "Use persistent cache for Embedly Services API call's responses."
+msgstr "Використовувати постійний кеш для відповідей Embedly Services API"
+
+#: collective/embedly/interfaces.py:21
+msgid "Use services regexp"
+msgstr "Використовувати сервіси regexp"
+
+#: collective/embedly/browser/plugin/embedly.pt:81
+msgid "Will append the wmode value to the flash object."
+msgstr "Вставить wmode значення у flash об’єкт."
+
+#: collective/embedly/browser/plugin/embedly.pt:67
+msgid ""
+"Will scale embeds type rich and video to the exact width that a developer "
+"specifies in pixels."
+msgstr "Масштабує вставлене відео до ширини заданої у пікселях."
+
+#: collective/embedly/browser/plugin/embedly.pt:92
+msgid "allowscripts"
+msgstr "allowscripts"
+
+#: collective/embedly/browser/plugin/embedly.pt:106
+msgid "autoplay"
+msgstr "autoplay"
+
+#: collective/embedly/browser/plugin/embedly.pt:73
+msgid "callback"
+msgstr "callback"
+
+#: collective/embedly/browser/plugin/embedly.pt:136
+msgid "chars"
+msgstr "chars"
+
+#: collective/embedly/browser/plugin/embedly.pt:137
+msgid ""
+"chars is much simpler than words. Embedly will blindly truncate a description "
+"to the number of characters you specify adding ... at the end when needed."
+msgstr ""
+"Параметр \"chars\" простіший ніж параметр \"words\". Embedly просто обріже "
+"опис "
+"відповідно до кількості символів, яку ви вкажете, і додасть ... в кінці, якщо "
+"потрібно."
+
+#: collective/embedly/browser/plugin/embedly.pt:59
+msgid "maxheight"
+msgstr "maxheight"
+
+#: collective/embedly/browser/plugin/embedly.pt:52
+msgid "maxwidth"
+msgstr "maxwidth"
+
+#: collective/embedly/browser/plugin/embedly.pt:99
+msgid "nostyle"
+msgstr "nostyle"
+
+#: collective/embedly/browser/plugin/embedly.pt:86
+msgid "opaque"
+msgstr "opaque"
+
+#: collective/embedly/browser/plugin/embedly.pt:87
+msgid "transparent"
+msgstr "transparent"
+
+#: collective/embedly/browser/plugin/embedly.pt:120
+msgid "videosrc"
+msgstr "videosrc"
+
+#: collective/embedly/browser/plugin/embedly.pt:66
+msgid "width"
+msgstr "width"
+
+#: collective/embedly/browser/plugin/embedly.pt:85
+msgid "window"
+msgstr "window"
+
+#: collective/embedly/browser/plugin/embedly.pt:80
+msgid "wmode"
+msgstr "wmode"
+
+#: collective/embedly/browser/plugin/embedly.pt:127
+msgid "words"
+msgstr "words"
+
+
