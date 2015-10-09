@@ -1,87 +1,19 @@
-.. image:: https://travis-ci.org/collective/collective.embedly.png?branch=master
-    :target: https://travis-ci.org/collective/collective.embedly
-
-.. image:: https://coveralls.io/repos/collective/collective.embedly/badge.svg?branch=master
-    :target: https://coveralls.io/r/collective/collective.embedly?branch=master
-
-.. image:: https://badge.fury.io/py/collective.embedly.svg
-    :target: http://badge.fury.io/py/collective.embedly
- 
-
 Introduction
 ============
 
+Check the README.txt_ inside of the package.
 
-This package provides TinyMCE visual editor support for embed.ly service:
-videos, images and other rich media can be inserted to Plone from different
-services through one API.
+.. image:: https://travis-ci.org/collective/collective.embedly.png?branch=master
+	:target: https://travis-ci.org/collective/collective.embedly
 
-The approach here is to use the Transform machinery to replace the URL with
-embed code by calling the embed.ly API.
+.. image:: https://coveralls.io/repos/collective/collective.embedly/badge.svg?branch=master
+  	:target: https://coveralls.io/r/collective/collective.embedly?branch=master
 
-There are more than 200 services that support embed.ly service. These are such
-video sharing sites as Youtube, Blip.tv, Vimeo; such audio streaming services
-as Grooveshark, SoundCloud, last.fm; such image/photo stocks as Flickr, and
-many other: GoogleMaps, Facebook, Twitter, etc.
+.. image:: https://badge.fury.io/py/collective.embedly.svg
+    	:target: http://badge.fury.io/py/collective.embedly
 
-This product was developed by http://quintagroup.com for Plone collective,
-sponsored by Headnet ApS http://headnet.dk.
+.. image:: https://pypip.in/v/collective.embedly/badge.png
+	:target: https://pypi.python.org/pypi/collective.embedly/
+	:alt: Downloads
 
-Usage
-=====
-
-To embed media from the embedly-supported external resource to Plone:
-
-* Go to the object's edit form, select some text and click
-  'Insert/Edit Embedly link' button.
-
-* In the panel add link and configure extra parameters in 'Advanced' tab.
-  Check http://embed.ly/docs/arguments for params description.
-
-* The text should now look like linked. TinyMCE makes the whole passage linked,
-  so keep in mind that the whole passage will later be substituted with
-  embedded media.
-
-* Save this page. Now when rendered, there will be "preview" from embed.ly
-  service inserted instead of the linked text.
-
-More about usage at http://projects.quintagroup.com/products/wiki/collective.embedly
-
-Note
-====
-
-* collective.embedly does not fix errors in provided URLs
-
-* you can check if your URL will be transformed calling embed.ly manualy, for example:
-
-   o video URL http://www.youtube.com/watch?v=L1NPLlhFTVk
-   o you should call http://api.embed.ly/1/oembed setting 'url' parameter with your value
-   o http://api.embed.ly/1/oembed?url=http://www.youtube.com/watch?v=L1NPLlhFTVk
-   o http://api.embed.ly/1/oembed?url=http://www.youtube.com/watch?v=L1NPLlhFTVk&fromat=xml format result as xml
-
-* You can set parameters by going to the Plone control panel / Embedly settings:
-
-   o cache usage and timeout
-   o service URL verification
-   o API key
-
-* You can update the regular expression for supported services by calling
-  http://yourhost/plonesite/@@update_embedly_services
-
-* The default is to not pass along an API key, your requests to embedly will be
-  anonymous and based solely on IP address.
-
-Supported Plone Versions
-========================
-
-* Plone 4.x
-
-Contributors
-============
-
-* Volodymyr Cherepanyak
-* Roman Kozlovskyi
-* Serhiy Valchuk
-* Clayton Parker
-* Laurent Lasudry
-* Harald Friessnegger
+.. _README.txt: https://github.com/collective/collective.embedly/blob/master/collective/embedly/README.txt
