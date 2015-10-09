@@ -14,8 +14,8 @@ test_require = [
 setup(name='collective.embedly',
       version=version,
       description="TinyMCE visual editor support for embed.ly service",
-      long_description=open(os.path.join("collective", "embedly", "README.txt")).read() + "\n" +
-                       open(os.path.join("docs", "HISTORY.rst")).read(),
+      long_description=open("README.rst").read() + "\n" +
+                       open("HISTORY.rst").read(),
       # Get more strings from
       # http://pypi.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
@@ -52,8 +52,8 @@ setup(name='collective.embedly',
           'setuptools',
           'plone.app.registry',
           # -*- Extra requirements: -*-
-      ], 
-      extras_require={'tests': test_require, }, 
+      ],
+      extras_require={'tests': test_require, },
       entry_points="""
       # -*- Entry points: -*-
       [z3c.autoinclude.plugin]
