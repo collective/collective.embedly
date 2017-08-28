@@ -185,7 +185,7 @@ def parse(text, doc=None):
         if service_blacklist:
             if re.match(service_blacklist, url):
                 # url is blacklisted
-                logger.info('skipping blacklisted url: ' + url)
+                logger.debug('skipping blacklisted url: ' + url)
                 return matchobj.group()
 
         # Not Something Embedly Handles
