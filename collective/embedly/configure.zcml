@@ -75,6 +75,15 @@
       sortkey="4"
       profile="collective.embedly:default"
       />
+  <genericsetup:upgradeStep
+      title="Add service blacklist to registry"
+      description=""
+      source="1004"
+      destination="1005"
+      handler="collective.embedly.setuphandlers.update_registry"
+      sortkey="4"
+      profile="collective.embedly:default"
+      />
   <utility
       factory=".setuphandlers.HiddenProfiles"
       name="collective.embedly"

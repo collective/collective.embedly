@@ -181,6 +181,13 @@ def parse(text, doc=None):
     def replace(matchobj):
         url = matchobj.groupdict().get('url', None)
 
+        service_blacklist = get_embedly_settings('service_blacklist')
+        if service_blacklist:
+            if re.match(service_blacklist, url):
+                # url is blacklisted
+                logger.debug('skipping blacklisted url: ' + url)
+                return matchobj.group()
+
         # Not Something Embedly Handles
         if get_embedly_settings('use_services_regexp') and not match(url):
             return matchobj.group()
