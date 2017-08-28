@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from zope import schema
 from zope.interface import Interface
 from collective.embedly import embedlyMessageFactory as _
@@ -40,5 +41,16 @@ class IEmbedlySettings(Interface):
         title=_(u"Cache timeout"),
         description=_(u"Time is seconds to invalidate cache."),
         default=60 * 60 * 24,
+        required=False,
+    )
+
+    service_blacklist = schema.TextLine(
+        title=_(u"Services Blacklist"),
+        description=_(
+            u"Do not request oembed results for services matching this regex "
+            u"(e.g: 'http[s]?://(?:www\\.)?(?:youtu.be|youtube.com).*'"
+            u"to not replace youtube urls"
+        ),
+        default=u'',
         required=False,
     )

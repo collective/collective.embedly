@@ -47,6 +47,12 @@ class EmbedlyControlPanelAdapter(SchemaAdapterBase):
     def setCacheTimeout(self, value):
         self.settings.cache_timeout = value
 
+    def get_blacklist(self):
+        return self.settings.service_blacklist
+
+    def set_blacklist(self, value):
+        self.settings.service_blacklist = value
+
     api_key = property(getAPIKey,
                        setAPIKey)
 
@@ -58,6 +64,9 @@ class EmbedlyControlPanelAdapter(SchemaAdapterBase):
 
     cache_timeout = property(getCacheTimeout,
                              setCacheTimeout)
+
+    service_blacklist = property(get_blacklist,
+                                set_blacklist)
 
 
 class EmbedlyControlPanel(ControlPanelForm):
