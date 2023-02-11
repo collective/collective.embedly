@@ -1,9 +1,11 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="collective.embedly">
 
-  <adapter factory=".controlpanel.EmbedlyControlPanelAdapter" />
+  <adapter factory=".controlpanel.EmbedlyControlPanelAdapter"
+           zcml:condition="installed Products.CMFDefault.formlib" />
 
   <browser:resource
     name="embedly.css"
@@ -26,6 +28,7 @@
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"
       class=".controlpanel.EmbedlyControlPanel"
       permission="cmf.ManagePortal"
+      zcml:condition="installed Products.CMFDefault.formlib"
       />
 
   <browser:resourceDirectory
