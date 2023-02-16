@@ -3,6 +3,8 @@ Changelog
 
 dev
 ---
+- Py3 compatibility
+  [sauzher]
 
 - Don't attempt to decode unicode strings in transform.
   [alecm]

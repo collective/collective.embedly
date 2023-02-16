@@ -1,17 +1,17 @@
-import urllib2
+import urllib
 import json
 import re
 import logging
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 from Products.PortalTransforms.interfaces import ITransform
-from zope.interface import implements
+from zope.interface import implementer
 from zope.component import getUtility, queryUtility
 from plone.registry.interfaces import IRegistry
 from plone.memoize import ram
 from plone.memoize.interfaces import ICacheChooser
 from time import time
-from urlparse import urlparse, parse_qsl
+from urllib.parse import urlparse, parse_qsl
 try:
     from zope.app.component.hooks import getSite
 except ImportError:
@@ -48,7 +48,7 @@ def clear_cache():
 
 
 def update_services():
-    resp = urllib2.urlopen('http://api.embed.ly/1/services/python')
+    resp = urllib.request.urlopen('http://api.embed.ly/1/services/python')
     if resp.getcode() == 200:
         list_exp = []
         for service in json.loads(resp.read()):
@@ -152,12 +152,12 @@ def get_oembed(url, api_key=None, doc=None):
     if embedly_query:
         embedly_query = '&' + embedly_query
     fetch_url = 'http://api.embed.ly/1/oembed?%surl=%s%s&format=json' % \
-        (api_key_string, urllib2.quote(curl.encode('utf-8')), embedly_query)
+        (api_key_string, urllib.parse.quote(curl.encode('utf-8')), embedly_query)
     logger.debug("HREF:%s URL:%s" % (url, fetch_url))
     try:
-        result = urllib2.urlopen(fetch_url).read()
+        result = urllib.request.urlopen(fetch_url).read()
         logger.debug("Response: %s" % result)
-    except urllib2.HTTPError, e:
+    except urllib.HTTPError as e:
         if doc:
             logger.error("Unexpected response from embedly API (%d: %s) while processing %s in %s" % (e.code, e.msg, url, doc))
         else:
@@ -202,8 +202,8 @@ def parse(text, doc=None):
     return link_url_re.sub(replace, text)
 
 
+@implementer(ITransform)
 class EmbedlyTransform:
-    implements(ITransform)
 
     __name__ = "embedly_transform"
 

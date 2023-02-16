@@ -1,5 +1,5 @@
-from zope.interface import implements
-from zope.component import adapts
+from zope.interface import implementer
+from zope.component import adapter
 from zope.component import getUtility
 from zope.formlib import form
 
@@ -13,10 +13,9 @@ from collective.embedly import embedlyMessageFactory as _
 from collective.embedly.interfaces import IEmbedlySettings
 
 
+@implementer(IEmbedlySettings)
+@adapter(IPloneSiteRoot)
 class EmbedlyControlPanelAdapter(SchemaAdapterBase):
-
-    adapts(IPloneSiteRoot)
-    implements(IEmbedlySettings)
 
     def __init__(self, context):
         super(EmbedlyControlPanelAdapter, self).__init__(context)

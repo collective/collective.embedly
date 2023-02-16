@@ -1,4 +1,4 @@
-from zope.interface import implements
+from zope.interface import implementer
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import INonInstallable
 from zope.component import getUtility
@@ -16,8 +16,8 @@ TINYMCEDROP.update({
 })
 
 
+#implementer(INonInstallable)
 class HiddenProfiles(object):
-    implements(INonInstallable)
 
     def getNonInstallableProfiles(self):
         """
