@@ -1,4 +1,3 @@
-import urllib
 import json
 import re
 import logging
@@ -11,7 +10,13 @@ from plone.registry.interfaces import IRegistry
 from plone.memoize import ram
 from plone.memoize.interfaces import ICacheChooser
 from time import time
-from urllib.parse import urlparse, parse_qsl
+try:
+    from urllib.request import urlopen
+    from urllib.error import HTTPError
+    from urllib.parse import urlparse, parse_qsl, quote
+except ImportError:
+    from urlparse import urlparse, parse_qsl
+    from urllib2 import urlopen, HTTPError, quote
 try:
     from zope.app.component.hooks import getSite
 except ImportError:
@@ -48,7 +53,7 @@ def clear_cache():
 
 
 def update_services():
-    resp = urllib.request.urlopen('http://api.embed.ly/1/services/python')
+    resp = urlopen('http://api.embed.ly/1/services/python')
     if resp.getcode() == 200:
         list_exp = []
         for service in json.loads(resp.read()):
@@ -152,12 +157,12 @@ def get_oembed(url, api_key=None, doc=None):
     if embedly_query:
         embedly_query = '&' + embedly_query
     fetch_url = 'http://api.embed.ly/1/oembed?%surl=%s%s&format=json' % \
-        (api_key_string, urllib.parse.quote(curl.encode('utf-8')), embedly_query)
+        (api_key_string, quote(curl.encode('utf-8')), embedly_query)
     logger.debug("HREF:%s URL:%s" % (url, fetch_url))
     try:
-        result = urllib.request.urlopen(fetch_url).read()
+        result = urlopen(fetch_url).read()
         logger.debug("Response: %s" % result)
-    except urllib.HTTPError as e:
+    except HTTPError as e:
         if doc:
             logger.error("Unexpected response from embedly API (%d: %s) while processing %s in %s" % (e.code, e.msg, url, doc))
         else:

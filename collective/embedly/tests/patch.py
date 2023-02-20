@@ -1,7 +1,15 @@
-import urllib2
 import re
-from urlparse import urlparse, parse_qsl
 from collective.embedly.transform import get_services_regexp
+
+try:
+    from urllib.request import urlopen
+    from urllib.parse import urlparse, parse_qsl
+    from urllib.error import HTTPError
+except ImportError:
+    from urllib2 import urlopen
+    from urlparse import urlparse, parse_qsl
+    from urllib2 import HTTPError
+
 
 
 embedly_data = '{"provider_url": "http://www.youtube.com/", "description": "HAYDAMAKY message", "title": "HAYDAMAKY message", "url": "http://www.youtube.com/watch?v=L1NPLlhFTVk", "author_name": "eastblok", "height": 360, "width": 640, "html": "<object width=\\"640\\" height=\\"360\\"><param name=\\"movie\\" value=\\"http://www.youtube.com/v/L1NPLlhFTVk?version=3\\"><param name=\\"allowFullScreen\\" value=\\"true\\"><param name=\\"allowscriptaccess\\" value=\\"always\\"><embed src=\\"http://www.youtube.com/v/L1NPLlhFTVk?version=3\\" type=\\"application/x-shockwave-flash\\" width=\\"640\\" height=\\"360\\" allowscriptaccess=\\"always\\" allowfullscreen=\\"true\\"></embed></object>", "thumbnail_width": 480, "version": "1.0", "provider_name": "YouTube", "thumbnail_url": "http://i1.ytimg.com/vi/L1NPLlhFTVk/hqdefault.jpg", "type": "video", "thumbnail_height": 360, "author_url": "http://www.youtube.com/user/eastblok"}'
@@ -39,8 +47,8 @@ class dummy_urlopen():
                 service_url = p[1]
 
         if key is not None and len(key) != 32:
-            from StringIO import StringIO
-            raise urllib2.HTTPError(self.url, 401, 'Unauthorized', None,
+            from six import StringIO
+            raise HTTPError(self.url, 401, 'Unauthorized', None,
                                     StringIO('Invalid key or oauth_consumer_key provided: %s' % key))
         if re.match(get_services_regexp(), service_url):
             if service_url.endswith('.jpg'):
@@ -53,14 +61,14 @@ class dummy_urlopen():
     def close(self):
         pass
 
-original_urlopen = urllib2.urlopen
+original_urlopen = urlopen
 
 
 def patch_urlopen():
     global original_urlopen
-    original_urlopen = urllib2.urlopen
-    urllib2.urlopen = dummy_urlopen
+    original_urlopen = urlopen
+    urlopen = dummy_urlopen
 
 
 def unpatch_urlopen():
-    urllib2.urlopen = original_urlopen
+    urlopen = original_urlopen
