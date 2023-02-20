@@ -16,7 +16,7 @@ TINYMCEDROP.update({
 })
 
 
-#implementer(INonInstallable)
+@implementer(INonInstallable)
 class HiddenProfiles(object):
 
     def getNonInstallableProfiles(self):
