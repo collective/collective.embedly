@@ -1,4 +1,3 @@
-import urllib2
 import json
 import robotsuite
 import unittest2 as unittest
@@ -24,6 +23,11 @@ from collective.embedly.tests.layer import EMBEDLY_INTEGRATION_TESTING
 from collective.embedly.tests.layer import EMBEDLY_ACCEPTANCE_TESTING
 from collective.embedly.tests.patch import json_result
 
+try:
+    from urllib.request import urlopen
+except ImportError:
+    from urllib2 import urlopen
+
 
 embedly_filter = lambda i: i['path'] == 'collective.embedly.transform.get_oembed'
 
@@ -41,7 +45,7 @@ class TestSetup(unittest.TestCase):
         view = portal.unrestrictedTraverse("@@update_embedly_services")
         view.__of__(portal)()
 
-        res = urllib2.urlopen('http://api.embed.ly/1/services/python')
+        res = urlopen('http://api.embed.ly/1/services/python')
         list_exp = []
         for service in json.loads(res.read()):
             list_exp.append('|'.join(service.get('regex', [])))
