@@ -26,7 +26,7 @@ from collective.embedly.tests.patch import json_result
 try:
     from urllib.request import urlopen
 except ImportError:
-    from urllib import urlopen
+    from urllib2 import urlopen
 
 
 embedly_filter = lambda i: i['path'] == 'collective.embedly.transform.get_oembed'
