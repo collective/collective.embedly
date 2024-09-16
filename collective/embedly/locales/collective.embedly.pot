@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-09-26 15:19+0000\n"
+"POT-Creation-Date: 2017-08-28 19:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
 
-#: collective/embedly/interfaces.py:12
+#: collective/embedly/interfaces.py:13
 msgid "API Key"
 msgstr ""
 
@@ -22,15 +22,19 @@ msgstr ""
 msgid "Advanced"
 msgstr ""
 
-#: collective/embedly/interfaces.py:40
+#: collective/embedly/interfaces.py:41
 msgid "Cache timeout"
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:151
+#: collective/embedly/browser/plugin/embedly.pt:154
 msgid "Cancel"
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:121
+#: collective/embedly/interfaces.py:49
+msgid "Do not request oembed results for services matching this regex (e.g: 'http[s]?://(?:www\.)?(?:youtu.be|youtube.com).*'to not replace youtube urls"
+msgstr ""
+
+#: collective/embedly/browser/plugin/embedly.pt:124
 msgid "Either true Embedly will use the video_src meta or Open Graph tag to create a video object to embed."
 msgstr ""
 
@@ -39,11 +43,11 @@ msgstr ""
 msgid "Embedly"
 msgstr ""
 
-#: collective/embedly/browser/controlpanel.py:65
+#: collective/embedly/browser/controlpanel.py:74
 msgid "Embedly settings"
 msgstr ""
 
-#: collective/embedly/interfaces.py:13
+#: collective/embedly/interfaces.py:14
 msgid "Enter the API key given to you by Embedly. It can be found by logging into Embedly and going to your dashboard."
 msgstr ""
 
@@ -51,143 +55,147 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:113
+#: collective/embedly/browser/plugin/embedly.pt:116
 msgid "Hide Related"
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:93
+#: collective/embedly/browser/plugin/embedly.pt:96
 msgid "In some cases, you may need the script tag for saving and displaying later. In order for Embedly to send the script embeds over jsonp add allowscripts."
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:150
+#: collective/embedly/browser/plugin/embedly.pt:153
 msgid "Insert"
 msgstr ""
 
-#: collective/embedly/browser/controlpanel.py:66
+#: collective/embedly/browser/controlpanel.py:75
 msgid "Lets you change the settings of collective.embedly"
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:32
+#: collective/embedly/browser/plugin/embedly.pt:35
 msgid "Link URL"
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:35
+#: collective/embedly/browser/plugin/embedly.pt:38
 msgid "Preview"
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:74
+#: collective/embedly/interfaces.py:48
+msgid "Services Blacklist"
+msgstr ""
+
+#: collective/embedly/browser/plugin/embedly.pt:77
 msgid "The callback is the name of the javascript function to execute."
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:128
+#: collective/embedly/browser/plugin/embedly.pt:131
 msgid "The words parameter has a default value of 50 and works by trying to split the description at the closest sentence to that word count."
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:100
+#: collective/embedly/browser/plugin/embedly.pt:103
 msgid "These all have style elements and inline styles associated with them that make the embeds look good. If you wish to style these embeds yourself, you can add nostyle and Embedly will remove the style elements."
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:60
+#: collective/embedly/browser/plugin/embedly.pt:63
 msgid "This is the maximum height of the embed in pixels."
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:53
+#: collective/embedly/browser/plugin/embedly.pt:56
 msgid "This is the maximum width of the embed in pixels."
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:114
+#: collective/embedly/browser/plugin/embedly.pt:117
 msgid "This will tell Embedly to not show related videos when the youtube video ended."
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:107
+#: collective/embedly/browser/plugin/embedly.pt:110
 msgid "This will tell the video/rich media to automatically play when the media is loaded."
 msgstr ""
 
-#: collective/embedly/interfaces.py:41
+#: collective/embedly/interfaces.py:42
 msgid "Time is seconds to invalidate cache."
 msgstr ""
 
-#: collective/embedly/interfaces.py:22
+#: collective/embedly/interfaces.py:23
 msgid "Use Embedly Services API for checking url before getting oembed result."
 msgstr ""
 
-#: collective/embedly/interfaces.py:31
+#: collective/embedly/interfaces.py:32
 msgid "Use persistent cache"
 msgstr ""
 
-#: collective/embedly/interfaces.py:32
+#: collective/embedly/interfaces.py:33
 msgid "Use persistent cache for Embedly Services API call's responses."
 msgstr ""
 
-#: collective/embedly/interfaces.py:21
+#: collective/embedly/interfaces.py:22
 msgid "Use services regexp"
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:81
+#: collective/embedly/browser/plugin/embedly.pt:84
 msgid "Will append the wmode value to the flash object."
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:67
+#: collective/embedly/browser/plugin/embedly.pt:70
 msgid "Will scale embeds type rich and video to the exact width that a developer specifies in pixels."
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:92
+#: collective/embedly/browser/plugin/embedly.pt:95
 msgid "allowscripts"
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:106
+#: collective/embedly/browser/plugin/embedly.pt:109
 msgid "autoplay"
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:73
+#: collective/embedly/browser/plugin/embedly.pt:76
 msgid "callback"
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:136
+#: collective/embedly/browser/plugin/embedly.pt:139
 msgid "chars"
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:137
+#: collective/embedly/browser/plugin/embedly.pt:140
 msgid "chars is much simpler than words. Embedly will blindly truncate a description to the number of characters you specify adding ... at the end when needed."
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:59
+#: collective/embedly/browser/plugin/embedly.pt:62
 msgid "maxheight"
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:52
+#: collective/embedly/browser/plugin/embedly.pt:55
 msgid "maxwidth"
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:99
+#: collective/embedly/browser/plugin/embedly.pt:102
 msgid "nostyle"
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:86
+#: collective/embedly/browser/plugin/embedly.pt:89
 msgid "opaque"
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:87
+#: collective/embedly/browser/plugin/embedly.pt:90
 msgid "transparent"
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:120
+#: collective/embedly/browser/plugin/embedly.pt:123
 msgid "videosrc"
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:66
+#: collective/embedly/browser/plugin/embedly.pt:69
 msgid "width"
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:85
+#: collective/embedly/browser/plugin/embedly.pt:88
 msgid "window"
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:80
+#: collective/embedly/browser/plugin/embedly.pt:83
 msgid "wmode"
 msgstr ""
 
-#: collective/embedly/browser/plugin/embedly.pt:127
+#: collective/embedly/browser/plugin/embedly.pt:130
 msgid "words"
 msgstr ""
 

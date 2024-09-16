@@ -4,6 +4,11 @@ Changelog
 dev
 ---
 
+- Add new registry setting `service_blacklist` and to not request embed
+  code for matching urls. (e.g. to handle embeds for youtube via javascript
+  and save API calls for other services)
+  [fRiSi]
+
 - Don't attempt to decode unicode strings in transform.
   [alecm]
 
