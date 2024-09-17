@@ -12,7 +12,7 @@ Check the README.txt_ inside of the package.
 .. image:: https://badge.fury.io/py/collective.embedly.svg
     	:target: http://badge.fury.io/py/collective.embedly
 
-.. image:: https://pypip.in/v/collective.embedly/badge.png
+.. image:: https://img.shields.io/pypi/v/collective.embedly.svg
 	:target: https://pypi.python.org/pypi/collective.embedly/
 	:alt: Downloads
 
